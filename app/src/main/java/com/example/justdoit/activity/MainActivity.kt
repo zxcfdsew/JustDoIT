@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.example.justdoit.R
 import com.example.justdoit.databinding.ActivityMainBinding
@@ -23,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        뒤로가기 버튼
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setFragment(HomeFragment())
         binding.bottomNavigation.itemIconTintList = null
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_fragment_home -> setFragment(HomeFragment())
                 R.id.item_fragment_diary -> setFragment(DiaryFragment())
                 R.id.item_fragment_community -> setFragment(CommunityFragment())
-                R.id.item_fragment_hospital -> setFragment(HospitalFragment())
+                R.id.item_fragment_search -> setFragment(SearchFragment())
                 R.id.item_fragment_setting -> setFragment(SettingFragment())
             }
             true

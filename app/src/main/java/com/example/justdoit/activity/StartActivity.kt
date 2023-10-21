@@ -1,12 +1,26 @@
 package com.example.justdoit.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.justdoit.R
+import com.example.justdoit.databinding.ActivityStartBinding
 
 class StartActivity : AppCompatActivity() {
+
+    private var mBinding : ActivityStartBinding? = null
+    private val binding get() = mBinding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start)
+        mBinding = ActivityStartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.startBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 }

@@ -24,7 +24,7 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemIconSize="25dp"
+        app:itemIconSize="22dp"
         app:labelVisibilityMode="labeled"
         app:itemTextColor="@drawable/bottom_navi_color"
         app:menu="@menu/bottom_navigation"/>
