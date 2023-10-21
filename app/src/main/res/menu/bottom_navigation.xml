@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_fragment_home"
+        android:enabled="true"
+        android:icon="@drawable/bottom_navi_home"
+        android:title="home" />
+
+    <item
+        android:id="@+id/item_fragment_diary"
+        android:enabled="true"
+        android:icon="@drawable/bottom_navi_diary"
+        android:title="diary" />
+
+    <item
+        android:id="@+id/item_fragment_community"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="community" />
+
+    <item
+        android:id="@+id/item_fragment_hospital"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="hospital" />
+
+    <item
+        android:id="@+id/item_fragment_setting"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="setting" />
+
+
+
+
+</menu>
