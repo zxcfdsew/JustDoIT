@@ -8,13 +8,8 @@ import android.view.ViewGroup
 import com.example.justdoit.R
 import com.example.justdoit.databinding.FragmentHomeBinding
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private var mBinding : FragmentHomeBinding? = null
     private val binding get() = mBinding!!
@@ -22,8 +17,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -33,6 +27,18 @@ class HomeFragment : Fragment() {
     ): View? {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mBinding = null
     }
 
 }

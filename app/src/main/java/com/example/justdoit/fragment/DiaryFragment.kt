@@ -20,7 +20,8 @@ class DiaryFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentDiaryBinding.inflate(layoutInflater, container, false)
@@ -32,5 +33,10 @@ class DiaryFragment : Fragment() {
 
 
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mBinding = null
     }
 }
