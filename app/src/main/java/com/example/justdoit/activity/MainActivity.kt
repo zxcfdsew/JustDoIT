@@ -1,7 +1,9 @@
 package com.example.justdoit.activity
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -31,7 +33,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_fragment_home -> setFragment(HomeFragment())
                 R.id.item_fragment_diary -> setFragment(DiaryFragment())
                 R.id.item_fragment_community -> setFragment(CommunityFragment())
-                R.id.item_fragment_search -> setFragment(SearchFragment())
+                R.id.item_fragment_search -> setFragment(SearchFragment(object : SearchFragment.isBackgroundColorChanged {
+                    override fun onColorChanged(color: Int) {
+                        binding.toolbar.setBackgroundColor(color)
+                        Log.d("test listener", "success")
+                    }
+                }))
                 R.id.item_fragment_setting -> setFragment(SettingFragment())
             }
             true
