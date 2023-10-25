@@ -11,4 +11,7 @@
     <color name="deep_purple">#FF430066</color>
     <color name="light_deep_purple">#FFDEC9E9</color>
     <color name="light_sky">#FFF5F6FF</color>
+    <color name="textcolor">#7D7B80</color>
+    <color name="gray">#E9E7EC</color>
+
 </resources>
