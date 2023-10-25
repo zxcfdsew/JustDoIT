@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.justdoit.R
-import com.example.justdoit.databinding.FragmentSettingBinding
+import com.example.justdoit.databinding.FragmentInfoBinding
 
-class SettingFragment : Fragment() {
+class InfoFragment : Fragment() {
 
-    private var mBinding : FragmentSettingBinding? = null
+    private var mBinding : FragmentInfoBinding? = null
     private val binding get() = mBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +23,7 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentSettingBinding.inflate(inflater, container, false)
+        mBinding = FragmentInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -1,6 +1,5 @@
 package com.example.justdoit.activity
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -39,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d("test listener", "success")
                     }
                 }))
-                R.id.item_fragment_setting -> setFragment(SettingFragment())
+                R.id.item_fragment_setting -> setFragment(InfoFragment())
             }
             true
         }

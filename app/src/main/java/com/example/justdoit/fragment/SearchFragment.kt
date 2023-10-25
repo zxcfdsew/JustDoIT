@@ -36,7 +36,7 @@ class SearchFragment(private val listener : isBackgroundColorChanged) : Fragment
 //                binding.linearLayout.setBackgroundColor(Color.parseColor("#FFF5F6FF"))    // light_sky
                 binding.linearLayout.setBackgroundColor(Color.parseColor("#FFFFFF00"))
                 binding.customSwitch.isSelected = false
-                listener.onColorChanged(Color.parseColor("#FFFFFF00"))
+                listener.onColorChanged(Color.parseColor("#FFFFFF00"))    // yellow
             } else {
                 binding.linearLayout.setBackgroundColor(Color.parseColor("#FFF9F6FF"))    // light_purple
                 binding.customSwitch.isSelected = true

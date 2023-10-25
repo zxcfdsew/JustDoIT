@@ -16,6 +16,9 @@ class StartActivity : AppCompatActivity() {
         mBinding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = "시작하기"
+
         binding.startBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
