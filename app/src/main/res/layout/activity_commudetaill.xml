@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_purple"
+    tools:context=".activity.CommudetaillActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="세부" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/textcolor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/contentTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/heart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_favorite_border_24" />
+
+                <ImageView
+                    android:id="@+id/blankheart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_favorite_24"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/heartCountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textcolor" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/sad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_favorite_border_24" />
+
+                <ImageView
+                    android:id="@+id/blanksad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_favorite_24"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/sadtCountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textcolor" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="댓글"
+                android:textColor="@color/textcolor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/commentCountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="2"
+                android:textColor="@color/textcolor"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp">
+
+        <EditText
+            android:id="@+id/commentAddEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/commentAddTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:text="작성"
+            android:textColor="@color/purple"
+            android:textStyle="bold" />
+    </FrameLayout>
+</RelativeLayout>

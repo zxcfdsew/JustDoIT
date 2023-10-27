@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_purple"
+    android:orientation="vertical"
+    tools:context=".activity.CategoryActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="글 작성" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 고민" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취업/진로" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="직장" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 고민" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 고민" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 고민" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 고민" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 고민" />
+
+
+    </com.google.android.material.chip.ChipGroup>
+</LinearLayout>

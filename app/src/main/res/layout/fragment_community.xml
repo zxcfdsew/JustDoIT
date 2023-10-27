@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.CommunityFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_purple"
+        app:tabIndicatorColor="@color/purple"
+        app:tabIndicatorGravity="bottom"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/purple" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@+id/tabLayout"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-</FrameLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/purple"
+        android:src="@drawable/baseline_add_24"
+        app:tint="@null" />
+
+
+</RelativeLayout>

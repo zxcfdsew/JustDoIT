@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "14173212262",
+    "project_id": "whats-19e32",
+    "storage_bucket": "whats-19e32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14173212262:android:2291ef1d8b8170647f67a7",
+        "android_client_info": {
+          "package_name": "com.example.justdoit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXyII9-8kM25AVMUnFx6vF_1gs_amR_iE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
