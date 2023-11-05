@@ -12,7 +12,18 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:title="우울"/>
+        android:title="우울" >
+
+        <ImageView
+            android:id="@+id/customSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_switch"
+            android:visibility="invisible"
+            android:clickable="true" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/frameLayout"
