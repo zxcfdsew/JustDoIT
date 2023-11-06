@@ -12,6 +12,15 @@
         android:theme="@style/Theme.JustDoIT"
         tools:targetApi="31">
         <activity
+            android:name=".activity.DiaryallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DiarydetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DiaryaddActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.CommudetaillActivity"
             android:exported="false" />
         <activity
