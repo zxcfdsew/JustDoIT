@@ -36,6 +36,7 @@
             android:background="@drawable/background_white_round" >
 
             <EditText
+                android:id="@+id/nicknameEdt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -44,6 +45,7 @@
                 android:background="@null" />
 
             <TextView
+                android:id="@+id/nicknameCheckBtn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -60,20 +62,45 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/startBtn"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_button_1"
-        android:gravity="center"
-        android:padding="5dp"
-        android:layout_margin="20dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:clickable="true"
-        android:elevation="5dp"
-        android:textColor="@color/black"
-        android:text="시작하기" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/startBtnActivate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_button_1_activate"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_margin="20dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:elevation="5dp"
+            android:textColor="@color/black"
+            android:text="시작하기" />
+
+        <TextView
+            android:id="@+id/startBtnDeactivate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_button_1_deactivate"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_margin="20dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:clickable="false"
+            android:elevation="5dp"
+            android:textColor="@color/black"
+            android:text="시작하기" />
+
+
+
+    </FrameLayout>
+
 
 
 
