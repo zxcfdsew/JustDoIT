@@ -27,7 +27,7 @@ public class SubCommuFragment extends Fragment {
     private String mParam2;
 
     public SubCommuFragment() {
-        // Required empty public constructor
+        // Required empty public constructor320
     }
 
     /**

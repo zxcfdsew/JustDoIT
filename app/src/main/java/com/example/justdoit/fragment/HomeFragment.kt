@@ -40,7 +40,6 @@ class HomeFragment : Fragment() {
         mAuth = Firebase.auth
         binding.testUidTxt.text = mAuth.currentUser!!.uid
 
-
     }
 
     override fun onDestroyView() {

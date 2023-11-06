@@ -24,7 +24,8 @@ class ExpertAdapter(val ExpertList: ArrayList<ExpertList>): RecyclerView.Adapter
             itemView.setOnClickListener {
                 val intent = Intent(parent.context, ExpertProfileActivity::class.java)
                 intent.run {
-                    parent.context.startActivity(intent) }
+                    parent.context.startActivity(intent)
+                }
             }
         }
     }

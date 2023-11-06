@@ -20,7 +20,6 @@ class CommunityFragment : Fragment() {
 
     private lateinit var mViewPagerAdapter : ViewPagerAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

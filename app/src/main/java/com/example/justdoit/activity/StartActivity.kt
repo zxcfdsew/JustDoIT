@@ -42,8 +42,6 @@ class StartActivity : AppCompatActivity() {
             addNewAccount(binding.nicknameEdt.text.toString())
         }
 
-
-
         binding.nicknameCheckBtn.setOnClickListener {
             val userNicknames = arrayListOf<String>()
             Log.d(TAG, binding.nicknameEdt.text.toString())
