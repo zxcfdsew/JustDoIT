@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.example.justdoit.adapters.ExpertViewPagerAdapter
 import com.example.justdoit.databinding.ActivityExpertProfileBinding
+import com.example.justdoit.fragment.ExpertReviewFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ExpertProfileActivity : AppCompatActivity() {
@@ -20,13 +21,20 @@ class ExpertProfileActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-//        binding.viewPager.adapter = ExpertViewPagerAdapter(supportFragmentManager, 2)
-//        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-//            when(position) {
-//                0 -> tab.text = "정보"
-//                1 -> tab.text = "리뷰"
-//            }
-//        }.attach()
+        binding.viewPager.adapter = ExpertViewPagerAdapter(this, 2)
+        binding.viewPager.isUserInputEnabled = false    // 스와이프 막기
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            when(position) {
+                0 -> tab.text = "정보"
+                1 -> tab.text = "리뷰"
+            }
+        }.attach()
+
+        var score = ExpertReviewFragment().ratingScore
+
+        binding.ratingScore1Txt.text = score.toString()
+        binding.ratingScore2Txt.text = score.toString()
+        binding.ratingBar.rating = score
 
     }
 
