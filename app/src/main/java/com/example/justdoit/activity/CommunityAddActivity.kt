@@ -18,7 +18,6 @@ class CommunityAddActivity : AppCompatActivity() {
         mBinding = ActivityCommunityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        fbFirestore = FirebaseFirestore.getInstance()
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
