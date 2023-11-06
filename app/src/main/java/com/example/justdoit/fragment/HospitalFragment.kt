@@ -1,23 +1,14 @@
 package com.example.justdoit.fragment
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.justdoit.R
-import com.example.justdoit.databinding.FragmentHomeBinding
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
+import com.example.justdoit.databinding.FragmentHospitalBinding
 
+class HospitalFragment : Fragment() {
 
-class HomeFragment : Fragment() {
-
-    private var mBinding : FragmentHomeBinding? = null
+    private var mBinding: FragmentHospitalBinding? = null
     private val binding get() = mBinding!!
-
-    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +21,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        mBinding = FragmentHospitalBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mAuth = Firebase.auth
-        binding.testUidTxt.text = mAuth.currentUser!!.uid
 
     }
 

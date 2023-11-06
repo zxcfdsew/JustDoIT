@@ -18,8 +18,7 @@ class CommunityFragment : Fragment() {
     private var mBinding : FragmentCommunityBinding? = null
     private val binding get() = mBinding!!
 
-    lateinit var mViewPagerAdapter : ViewPagerAdapter
-
+    private lateinit var mViewPagerAdapter : ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

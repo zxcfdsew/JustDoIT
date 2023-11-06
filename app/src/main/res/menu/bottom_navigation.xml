@@ -20,10 +20,10 @@
         android:title="community" />
 
     <item
-        android:id="@+id/item_fragment_search"
+        android:id="@+id/item_fragment_help"
         android:enabled="true"
         android:icon="@drawable/bottom_navi_search"
-        android:title="search" />
+        android:title="help" />
 
     <item
         android:id="@+id/item_fragment_setting"

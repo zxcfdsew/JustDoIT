@@ -5,17 +5,14 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_purple"
+    android:background="@color/light_sky"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".fragment.SearchFragment">
+    tools:context=".fragment.HospitalFragment">
 
-    <ImageView
-        android:id="@+id/customSwitch"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/custom_switch"
-        android:clickable="true" />
+        android:text="hospital" />
 
 </LinearLayout>

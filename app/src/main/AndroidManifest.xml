@@ -12,6 +12,7 @@
         android:theme="@style/Theme.JustDoIT"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ExpertProfileActivity"
             android:name=".activity.DiaryallActivity"
             android:exported="false" />
         <activity

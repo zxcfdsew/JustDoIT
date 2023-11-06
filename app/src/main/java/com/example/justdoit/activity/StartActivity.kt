@@ -40,12 +40,7 @@ class StartActivity : AppCompatActivity() {
 
         binding.startBtnActivate.setOnClickListener {
             addNewAccount(binding.nicknameEdt.text.toString())
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
-
-
 
         binding.nicknameCheckBtn.setOnClickListener {
             val userNicknames = arrayListOf<String>()
@@ -89,7 +84,14 @@ class StartActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "new Account Created")
+                            intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Log.d(TAG, "task not successful")
                         }
+                    }.addOnFailureListener {
+                        Log.d(TAG, "new account creat failed")
                     }
             }
         }
