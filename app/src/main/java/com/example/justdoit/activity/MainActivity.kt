@@ -61,6 +61,9 @@ class MainActivity : AppCompatActivity() {
                     setFragment(ExpertFragment())
                     supportActionBar?.title = "help"
                     expertVisibility(true)
+                    binding.toolbar.setBackgroundColor(Color.parseColor("#FFF9F6FF"))
+                    binding.customSwitch.isSelected = false
+                    toolbarBackgroundColor = false
                     expertMenuItem.isVisible = true
                 }
                 R.id.item_fragment_setting -> {
