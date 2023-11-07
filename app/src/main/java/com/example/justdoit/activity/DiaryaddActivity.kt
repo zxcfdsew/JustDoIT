@@ -11,7 +11,7 @@ import com.example.justdoit.databinding.ActivityDiaryaddBinding
 class DiaryaddActivity : AppCompatActivity() {
     private var mBinding: ActivityDiaryaddBinding? = null
     private val binding get() = mBinding!!
-    private var diarylist = mutableListOf<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class DiaryaddActivity : AppCompatActivity() {
         supportActionBar?.title = day
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
         binding.addTv.text = "작성"
 
@@ -64,7 +64,7 @@ class DiaryaddActivity : AppCompatActivity() {
                 putString("$day-content", content)
                 apply() //비동기처리, commit는 동기처리
             }
-            diarylist.add(day)
+            pref2.edit().putString(day,"저장").apply()
             Log.d("작성누름", "저장완료")
             finish()
         } else {

@@ -72,5 +72,7 @@
             android:hint="내용"
             android:textColorHint="@color/black"
             android:textSize="14sp" />
+
+
     </LinearLayout>
 </LinearLayout>
