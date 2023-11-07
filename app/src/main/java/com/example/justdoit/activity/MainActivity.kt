@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = mBinding!!
     private var toolbarBackgroundColor: Boolean = true
 
-    private lateinit var expertMenuItem: MenuItem
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -43,19 +41,16 @@ class MainActivity : AppCompatActivity() {
                     setFragment(HomeFragment())
                     supportActionBar?.title = "홈"
                     expertVisibility(false)
-                    expertMenuItem.isVisible = false
                 }
                 R.id.item_fragment_diary -> {
                     setFragment(DiaryFragment())
                     supportActionBar?.title = "일기"
                     expertVisibility(false)
-                    expertMenuItem.isVisible = false
                 }
                 R.id.item_fragment_community -> {
                     setFragment(CommunityFragment())
                     supportActionBar?.title = "커뮤니티"
                     expertVisibility(false)
-                    expertMenuItem.isVisible = false
                 }
                 R.id.item_fragment_help -> {
                     setFragment(ExpertFragment())
@@ -64,13 +59,11 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbar.setBackgroundColor(Color.parseColor("#FFF9F6FF"))
                     binding.customSwitch.isSelected = false
                     toolbarBackgroundColor = false
-                    expertMenuItem.isVisible = true
                 }
                 R.id.item_fragment_setting -> {
                     setFragment(InfoFragment())
                     supportActionBar?.title = "내 정보"
                     expertVisibility(false)
-                    expertMenuItem.isVisible = false
                 }
             }
             true
@@ -99,10 +92,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.custom_toolbar, menu)
-
-        expertMenuItem = menu?.findItem(R.id.expertAdd)!!
-        expertMenuItem.isVisible = false
-
         return true
     }
 
@@ -114,10 +103,6 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.test2 -> {
                 Toast.makeText(this, "test2", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.expertAdd -> {
-                Toast.makeText(this, "전문가 추가창 만들기", Toast.LENGTH_SHORT).show()
                 return true
             }
             else -> return false

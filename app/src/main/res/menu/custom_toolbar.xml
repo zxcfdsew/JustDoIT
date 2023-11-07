@@ -9,8 +9,4 @@
         android:id="@+id/test2"
         android:title="test2" />
 
-    <item
-        android:id="@+id/expertAdd"
-        android:title="전문가 추가" />
-
 </menu>

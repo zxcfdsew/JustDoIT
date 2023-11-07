@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_purple"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".activity.ExpertAddActivity">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="전문가 추가" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이름" />
+
+    <EditText
+        android:id="@+id/nameEdt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/background_white_round"
+        android:gravity="center_vertical"
+        android:hint="이름을 입력하세요"
+        android:paddingLeft="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="상담가능시간" />
+
+    <EditText
+        android:id="@+id/availableTimeEdt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/background_white_round"
+        android:gravity="center_vertical"
+        android:hint="상담가능시간을 입력하세요"
+        android:paddingLeft="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="연락처" />
+
+    <EditText
+        android:id="@+id/phoneNumEdt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/background_white_round"
+        android:gravity="center_vertical"
+        android:hint="연락처를 입력하세요"
+        android:paddingLeft="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="소개글" />
+
+    <EditText
+        android:id="@+id/introduceEdt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:background="@drawable/background_white_round"
+        android:gravity="top|left"
+        android:hint="소개글을 작성해주세요" />
+
+</LinearLayout>

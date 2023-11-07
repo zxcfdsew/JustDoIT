@@ -1,10 +1,15 @@
 package com.example.justdoit.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
+import com.example.justdoit.R
+import com.example.justdoit.activity.DiaryallActivity
 import com.example.justdoit.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment() {
@@ -14,7 +19,6 @@ class InfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -26,10 +30,19 @@ class InfoFragment : Fragment() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_helpers, menu)
 
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.addExpert -> {
+                        Toast.makeText(context, "전문가 추가 클릭됨", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.addHospital -> {
+                        Toast.makeText(context, "병원 추가 클릭됨", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 return false
             }
 

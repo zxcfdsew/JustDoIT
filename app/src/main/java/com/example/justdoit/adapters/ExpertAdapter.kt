@@ -13,40 +13,36 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.justdoit.R
 import com.example.justdoit.activity.ExpertProfileActivity
+import com.example.justdoit.databinding.ExpertListItemBinding
 import com.example.justdoit.datas.ExpertList
 
 class ExpertAdapter(val ExpertList: ArrayList<ExpertList>): RecyclerView.Adapter<ExpertAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpertAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.expert_list_item, parent, false)
-        return ViewHolder(view).apply {
-            itemView.setOnClickListener {
-                val intent = Intent(parent.context, ExpertProfileActivity::class.java)
-                intent.run {
-                    parent.context.startActivity(intent)
-                }
-            }
-        }
+        val view = ExpertListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ExpertAdapter.ViewHolder, position: Int) {
-        holder.profileImg.clipToOutline = true
+        holder.binding.profileImg.clipToOutline = true
+        holder.binding.nameTxt.text = ExpertList.get(position).name
+        holder.binding.availableTimeTxt.text = ExpertList.get(position).availableTime
+        holder.binding.phoneNumTxt.text = ExpertList.get(position).phoneNumber
 
-        holder.title.text = ExpertList.get(position).title
-        holder.name.text = ExpertList.get(position).name
-        holder.phoneNumber.text = ExpertList.get(position).phoneNumber
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ExpertProfileActivity::class.java)
+            intent.putExtra("documentId", ExpertList.get(position).documentId)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
         return ExpertList.size
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val title = itemView.findViewById<TextView>(R.id.titleTxt)
-        val name = itemView.findViewById<TextView>(R.id.nameTxt)
-        val phoneNumber = itemView.findViewById<TextView>(R.id.phoneNumTxt)
-        val profileImg = itemView.findViewById<ImageView>(R.id.profileImg)
+    class ViewHolder(val binding: ExpertListItemBinding): RecyclerView.ViewHolder(binding.root) {
+
 
     }
 

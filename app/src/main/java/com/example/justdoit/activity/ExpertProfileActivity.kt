@@ -18,6 +18,9 @@ class ExpertProfileActivity : AppCompatActivity() {
         mBinding = ActivityExpertProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val intent = intent
+        val documentId = intent.getStringExtra("documentId")
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -32,6 +35,7 @@ class ExpertProfileActivity : AppCompatActivity() {
 
         var score = ExpertReviewFragment().ratingScore
 
+        binding.nameTxt.text = documentId
         binding.ratingScore1Txt.text = score.toString()
         binding.ratingScore2Txt.text = score.toString()
         binding.ratingBar.rating = score

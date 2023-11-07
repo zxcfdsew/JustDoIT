@@ -34,9 +34,9 @@ class ExpertFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val ExpertList = arrayListOf(
-            ExpertList("타이틀1", "이름1", "010-2222-1111"),
-            ExpertList("타이틀2", "이름2", "010-3333-4444"),
-            ExpertList("타이틀3", "이름3", "010-6666-5555")
+            ExpertList("documentId1", "타이틀1", "이름1", "010-2222-1111"),
+            ExpertList("documentId2", "타이틀2", "이름2", "010-3333-4444"),
+            ExpertList("documentId3", "타이틀3", "이름3", "010-6666-5555")
         )
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

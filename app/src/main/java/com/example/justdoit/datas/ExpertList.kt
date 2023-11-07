@@ -1,5 +1,5 @@
 package com.example.justdoit.datas
 
-class ExpertList(val title: String, val name: String, val phoneNumber: String) {
+class ExpertList(val documentId: String, val name: String, val phoneNumber: String, val availableTime: String) {
 
 }
