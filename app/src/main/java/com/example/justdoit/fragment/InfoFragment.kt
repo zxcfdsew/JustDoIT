@@ -1,10 +1,10 @@
 package com.example.justdoit.fragment
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import com.example.justdoit.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment() {
@@ -14,9 +14,7 @@ class InfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
     }
 
     override fun onCreateView(
@@ -24,6 +22,19 @@ class InfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentInfoBinding.inflate(inflater, container, false)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return false
+            }
+
+        })
+
         return binding.root
     }
 
