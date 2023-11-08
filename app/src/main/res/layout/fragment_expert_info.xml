@@ -6,56 +6,10 @@
     android:orientation="vertical"
     tools:context=".fragment.ExpertInfoFragment">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/introduceTxt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="information" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="information" />
 
 </ScrollView>

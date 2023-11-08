@@ -12,7 +12,7 @@
         android:theme="@style/Theme.JustDoIT"
         tools:targetApi="31">
         <activity
-            android:name=".AddHelpersActivity"
+            android:name=".activity.ExpertAddActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ExpertProfileActivity"

@@ -2,8 +2,11 @@ package com.example.justdoit.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.justdoit.R
 import com.example.justdoit.adapters.HospitalAdapter
 import com.example.justdoit.databinding.FragmentHospitalBinding
 import com.example.justdoit.datas.HospitalList
@@ -25,6 +28,24 @@ class HospitalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentHospitalBinding.inflate(inflater, container, false)
+
+        val menuHost = requireActivity()
+        menuHost.addMenuProvider(object: MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_hospital, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.addHospital -> {
+                        Toast.makeText(context, "병원 추가 클릭됨", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                return false
+            }
+
+        }, this)
+
         return binding.root
     }
 

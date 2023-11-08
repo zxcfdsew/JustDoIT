@@ -52,7 +52,6 @@
             android:text="휴대폰 번호"
             android:layout_height="wrap_content" />
 
-
     </LinearLayout>
 
     <ImageView
