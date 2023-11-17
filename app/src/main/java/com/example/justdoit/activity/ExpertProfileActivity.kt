@@ -1,5 +1,6 @@
 package com.example.justdoit.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instanc
 import com.example.justdoit.R
 import com.example.justdoit.adapters.ExpertViewPagerAdapter
 import com.example.justdoit.databinding.ActivityExpertProfileBinding
+import com.example.justdoit.fragment.ExpertInfoFragment
 import com.example.justdoit.fragment.ExpertReviewFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -21,6 +23,9 @@ class ExpertProfileActivity : AppCompatActivity() {
     private var mBinding : ActivityExpertProfileBinding? = null
     private val binding get() = mBinding!!
     private val mStore = Firebase.firestore
+
+    var testData = "nothing"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityExpertProfileBinding.inflate(layoutInflater)
@@ -29,8 +34,9 @@ class ExpertProfileActivity : AppCompatActivity() {
         val intent = intent
         val expertUid = intent.getStringExtra("expertUid").toString()
 
-        val db = mStore.collection("ExpertList").document(expertUid!!)
+        testData = expertUid
 
+        val db = mStore.collection("ExpertList").document(expertUid!!)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -45,7 +51,7 @@ class ExpertProfileActivity : AppCompatActivity() {
             }
         }
 
-        binding.viewPager.adapter = ExpertViewPagerAdapter(this, 2)
+        binding.viewPager.adapter = ExpertViewPagerAdapter(this, 2, testData)
         binding.viewPager.isUserInputEnabled = false    // 스와이프 막기
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when(position) {
@@ -62,5 +68,16 @@ class ExpertProfileActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    fun datsSendingTest() {
+        val bundle: Bundle = Bundle()
+
+        val message = "testing"
+        bundle.putString("data", message)
+
+
+    }
+
+
 
 }

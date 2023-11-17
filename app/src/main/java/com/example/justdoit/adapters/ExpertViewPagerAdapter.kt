@@ -7,14 +7,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.justdoit.fragment.ExpertInfoFragment
 import com.example.justdoit.fragment.ExpertReviewFragment
 
-class ExpertViewPagerAdapter(fragment: FragmentActivity, private val pageCount: Int) : FragmentStateAdapter(fragment) {
+class ExpertViewPagerAdapter(fragment: FragmentActivity, private val pageCount: Int, val test:String) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return pageCount
     }
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0 -> ExpertInfoFragment()
+            0 -> ExpertInfoFragment(test)
             else -> ExpertReviewFragment()
         }
     }

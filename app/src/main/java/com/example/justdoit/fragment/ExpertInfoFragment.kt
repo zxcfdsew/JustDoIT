@@ -13,7 +13,7 @@ import com.example.justdoit.datas.PublicDatas
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ExpertInfoFragment : Fragment() {
+class ExpertInfoFragment(var Uid: String) : Fragment() {
     private var mBinding: FragmentExpertInfoBinding? = null
     private val binding get() = mBinding!!
     private val mStore = Firebase.firestore
@@ -34,17 +34,14 @@ class ExpertInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var expertUid = PublicDatas().ExpertUid
-        Log.d("testDatasending", expertUid)
-
-        val db = mStore.collection("ExpertList").document(expertUid!!)
+        val db = mStore.collection("ExpertList").document(Uid)
         db.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val data = task.result
                 binding.introduceTxt.text = data.get("introduce").toString()
+
             }
         }
-
 
     }
 

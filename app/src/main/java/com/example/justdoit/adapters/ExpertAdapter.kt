@@ -30,6 +30,9 @@ class ExpertAdapter(val ExpertList: ArrayList<ExpertInfo>): RecyclerView.Adapter
             PublicDatas().uidChange(ExpertList.get(position).expertUid)
             Log.d("dataChange", PublicDatas().ExpertUid)
             holder.itemView.context.startActivity(intent)
+
+
+
         }
     }
 

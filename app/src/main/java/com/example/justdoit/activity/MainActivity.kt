@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
 //        뒤로가기 버튼
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-
         setFragment(HomeFragment())
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnItemSelectedListener {
