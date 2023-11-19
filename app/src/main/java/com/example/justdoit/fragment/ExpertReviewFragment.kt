@@ -1,6 +1,7 @@
 package com.example.justdoit.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,16 @@ import com.example.justdoit.R
 import com.example.justdoit.adapters.ExpertReviewAdapter
 import com.example.justdoit.databinding.FragmentExpertReviewBinding
 import com.example.justdoit.datas.ExpertReview
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
-class ExpertReviewFragment : Fragment() {
+class ExpertReviewFragment(val Uid: String) : Fragment() {
 
     private var mBinding: FragmentExpertReviewBinding? = null
     private val binding get() = mBinding!!
-
-    var ratingScore = 4.6F
+    private val mStore = Firebase.firestore
+    var reviews: ArrayList<ExpertReview> = arrayListOf()
+    var ratingScore = 0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,29 +39,44 @@ class ExpertReviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val reviews = arrayListOf(
-            ExpertReview("사과", 3, "노잼"),
-            ExpertReview("바나나", 5, "좋습니다")
-        )
-        var starSum = 0
-        for (i in reviews) {
-            for (j in i.star.toString()) {
-                starSum += j.toInt()
-            }
-        }
-        ratingScore = (((reviews.size*5).toFloat())/starSum)
-
-        binding.reviewCountTxt.text = reviews.size.toString()
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.adapter = ExpertReviewAdapter(reviews)
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mBinding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.setHasFixedSize(true)
+
+        val db = mStore.collection("ExpertList").document(Uid)
+        db.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                var datas = task.result.get("review") as ArrayList<Map<String, String>>
+                var starSum = 0F
+                var count = 0
+                for (data in datas) {
+                    reviews.add(ExpertReview(data.get("writerNickName").toString(), data.get("ratingScore").toString().toFloat(), data.get("review").toString()))
+                    starSum += data.get("ratingScore").toString().toFloat()
+                    count++
+                }
+                ratingScore = starSum / count
+                val ratingScoreString = String.format("%.1f", ratingScore)
+                db.update("score", ratingScoreString)
+                binding.reviewCountTxt.text = reviews.size.toString()
+                binding.recyclerView.adapter = ExpertReviewAdapter(reviews)
+
+            }
+        }
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        reviews = arrayListOf()
     }
 
 }

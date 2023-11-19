@@ -1,20 +1,22 @@
 package com.example.justdoit.activity
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
+import android.widget.EditText
+import android.widget.RatingBar
+import androidx.appcompat.app.AlertDialog
 import com.example.justdoit.R
 import com.example.justdoit.adapters.ExpertViewPagerAdapter
 import com.example.justdoit.databinding.ActivityExpertProfileBinding
-import com.example.justdoit.fragment.ExpertInfoFragment
-import com.example.justdoit.fragment.ExpertReviewFragment
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -23,8 +25,8 @@ class ExpertProfileActivity : AppCompatActivity() {
     private var mBinding : ActivityExpertProfileBinding? = null
     private val binding get() = mBinding!!
     private val mStore = Firebase.firestore
-
-    var testData = "nothing"
+    private val mAuth: FirebaseAuth = Firebase.auth
+    private lateinit var userNickname: String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,33 +34,54 @@ class ExpertProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val intent = intent
-        val expertUid = intent.getStringExtra("expertUid").toString()
+        val userUid = mAuth.currentUser?.uid
+        mStore.collection("Accounts").document(userUid.toString()).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                userNickname = task.result.get("nickname").toString()
+            }
+        }
 
-        testData = expertUid
+        val expertUid = intent.getStringExtra("expertUid").toString()
 
         val db = mStore.collection("ExpertList").document(expertUid!!)
 
+        binding.favoriteIv.setOnClickListener {
+            it.isSelected = !it.isSelected
+            if (it.isSelected) {
+                Log.d("imgTest", "true")
+            } else {
+                Log.d("imgTest", "false")
+            }
+        }
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "전문가 정보"
 
         db.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val datas = task.result
-                binding.nameTxt.text = datas.get("name").toString()
-                binding.ratingScore1Txt.text = datas.get("score").toString()
-                binding.ratingScore2Txt.text = datas.get("score").toString()
-                binding.ratingBar.rating = datas.get("score").toString().toFloat()
+                binding.expertNameTxt.text = datas.get("name").toString()
+                binding.ratingTxt.text = datas.get("score").toString()
+                binding.availableTimeTxt.text = datas.get("availableTime").toString()
+                binding.phoneNumTxt.text = datas.get("phoneNum").toString()
             }
         }
 
-        binding.viewPager.adapter = ExpertViewPagerAdapter(this, 2, testData)
+        binding.viewPager.adapter = ExpertViewPagerAdapter(this, 2, expertUid)
         binding.viewPager.isUserInputEnabled = false    // 스와이프 막기
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when(position) {
-                0 -> tab.text = "정보"
+                0 -> tab.text = "소개"
                 1 -> tab.text = "리뷰"
             }
         }.attach()
+
+        binding.reviewBtn.setOnClickListener {
+            val reviewIntent = Intent(this, AddReviewActivity::class.java)
+            reviewIntent.putExtra("from", "expert")
+            startActivity(reviewIntent)
+        }
 
     }
 
@@ -68,16 +91,5 @@ class ExpertProfileActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    fun datsSendingTest() {
-        val bundle: Bundle = Bundle()
-
-        val message = "testing"
-        bundle.putString("data", message)
-
-
-    }
-
-
 
 }

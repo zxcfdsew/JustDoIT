@@ -16,4 +16,20 @@
         <!-- statusbar color = black -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+    <style name="Theme.JustDoIT_Hospital" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/light_sky</item>
+        <item name="colorPrimaryVariant">@color/light_sky</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">@color/black</item>
+        <!-- Customize your theme here. -->
+        <!-- statusbar color = black -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
 </resources>

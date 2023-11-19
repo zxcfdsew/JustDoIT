@@ -22,12 +22,6 @@ class ExpertFragment : Fragment() {
     private val binding get() = mBinding!!
     private val mStore = Firebase.firestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

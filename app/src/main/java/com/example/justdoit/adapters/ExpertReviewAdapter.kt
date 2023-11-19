@@ -12,27 +12,27 @@ import com.example.justdoit.datas.ExpertReview
 
 class ExpertReviewAdapter(val reviews: ArrayList<ExpertReview>) : RecyclerView.Adapter<ExpertReviewAdapter.ViewHolder>() {
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ExpertReviewAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.expert_review_item, parent, false)
-        return ViewHolder(ExpertReviewItemBinding.bind(view))
+        val view = ExpertReviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ExpertReviewAdapter.ViewHolder, position: Int) {
-        holder.binding.nicknameTxt.text = reviews.get(position).nickname
-        holder.binding.detailTxt.text = reviews.get(position).detail
-        holder.binding.ratingBar.rating = reviews.get(position).star.toFloat()
-
+        holder.bind(reviews[position])
     }
 
     override fun getItemCount(): Int {
         return reviews.size
     }
 
-    class ViewHolder(val binding: ExpertReviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    class ViewHolder(private val binding: ExpertReviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(expertReview: ExpertReview) {
+            binding.nicknameTxt.text = expertReview.nickname
+            binding.detailTxt.text = expertReview.detail
+            binding.ratingBar.rating = expertReview.star
+        }
     }
 }

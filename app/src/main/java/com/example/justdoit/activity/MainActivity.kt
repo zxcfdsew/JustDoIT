@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import android.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.justdoit.R
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                     setFragment(ExpertFragment())
                     supportActionBar?.title = "help"
                     expertVisibility(true)
-                    binding.toolbar.setBackgroundColor(Color.parseColor("#FFF9F6FF"))
+                    binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_purple))
                     binding.customSwitch.isSelected = false
                     toolbarBackgroundColor = false
                 }
@@ -69,12 +70,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.customSwitch.setOnClickListener {
             if (binding.customSwitch.isSelected) {
-                binding.toolbar.setBackgroundColor(Color.parseColor("#FFF9F6FF")) // light_purple
+                binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_purple))
                 binding.customSwitch.isSelected = false
                 toolbarBackgroundColor = false
                 setFragment(ExpertFragment())
             } else {
-                binding.toolbar.setBackgroundColor(Color.parseColor("#FFF5F6FF"))  // light_sky
+                binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_sky))
                 binding.customSwitch.isSelected = true
                 toolbarBackgroundColor = true
                 setFragment(HospitalFragment())

@@ -1,5 +1,6 @@
 package com.example.justdoit.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -16,19 +17,12 @@ class HospitalFragment : Fragment() {
     private var mBinding: FragmentHospitalBinding? = null
     private val binding get() = mBinding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentHospitalBinding.inflate(inflater, container, false)
-
+        val myInflater = inflater.cloneInContext(ContextThemeWrapper(requireActivity(), R.style.Theme_JustDoIT_Hospital))
+        mBinding = FragmentHospitalBinding.inflate(myInflater, container, false)
         val menuHost = requireActivity()
         menuHost.addMenuProvider(object: MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -45,7 +39,6 @@ class HospitalFragment : Fragment() {
             }
 
         }, this)
-
         return binding.root
     }
 
@@ -69,5 +62,11 @@ class HospitalFragment : Fragment() {
         super.onDestroyView()
         mBinding = null
     }
+
+//    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+//        val inflater = super.onGetLayoutInflater(savedInstanceState)
+//        val contextThemeWrapper: Context = ContextThemeWrapper(requireActivity(), R.style.Theme_JustDoIT_Hospital)
+//        return inflater.cloneInContext(contextThemeWrapper)
+//    }
 
 }

@@ -8,40 +8,37 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.justdoit.activity.ExpertProfileActivity
 import com.example.justdoit.databinding.ExpertListItemBinding
 import com.example.justdoit.datas.ExpertInfo
-import com.example.justdoit.datas.PublicDatas
 
 class ExpertAdapter(val ExpertList: ArrayList<ExpertInfo>): RecyclerView.Adapter<ExpertAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpertAdapter.ViewHolder {
         val view = ExpertListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view).also { viewHolder ->
+            viewHolder.itemView.setOnClickListener {
+                val intent = Intent(viewHolder.itemView.context, ExpertProfileActivity::class.java)
+                intent.putExtra("expertUid", ExpertList.get(viewHolder.adapterPosition).expertUid)
+                viewHolder.itemView.context.startActivity(intent)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ExpertAdapter.ViewHolder, position: Int) {
-        holder.binding.profileImg.clipToOutline = true
-        holder.binding.nameTxt.text = ExpertList.get(position).name
-        holder.binding.availableTimeTxt.text = ExpertList.get(position).availableTime
-        holder.binding.phoneNumTxt.text = ExpertList.get(position).phoneNum
-
-        holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ExpertProfileActivity::class.java)
-            intent.putExtra("expertUid", ExpertList.get(position).expertUid)
-            PublicDatas().uidChange(ExpertList.get(position).expertUid)
-            Log.d("dataChange", PublicDatas().ExpertUid)
-            holder.itemView.context.startActivity(intent)
-
-
-
-        }
+        holder.bind(ExpertList[position])
     }
 
     override fun getItemCount(): Int {
         return ExpertList.size
     }
 
-    class ViewHolder(val binding: ExpertListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ExpertListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
+        fun bind(expertInfo: ExpertInfo) {
+            binding.profileImg.clipToOutline = true
+            binding.nameTxt.text = expertInfo.name
+            binding.availableTimeTxt.text = expertInfo.availableTime
+            binding.phoneNumTxt.text = expertInfo.phoneNum
+        }
 
     }
 
