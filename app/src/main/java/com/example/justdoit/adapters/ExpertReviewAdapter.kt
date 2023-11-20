@@ -1,16 +1,12 @@
 package com.example.justdoit.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.justdoit.R
-import com.example.justdoit.databinding.ExpertListItemBinding
 import com.example.justdoit.databinding.ExpertReviewItemBinding
-import com.example.justdoit.datas.ExpertReview
+import com.example.justdoit.datas.ReviewData
 
-class ExpertReviewAdapter(val reviews: ArrayList<ExpertReview>) : RecyclerView.Adapter<ExpertReviewAdapter.ViewHolder>() {
+class ExpertReviewAdapter(val reviews: ArrayList<ReviewData>) : RecyclerView.Adapter<ExpertReviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,10 +25,10 @@ class ExpertReviewAdapter(val reviews: ArrayList<ExpertReview>) : RecyclerView.A
     }
 
     class ViewHolder(private val binding: ExpertReviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(expertReview: ExpertReview) {
-            binding.nicknameTxt.text = expertReview.nickname
-            binding.detailTxt.text = expertReview.detail
-            binding.ratingBar.rating = expertReview.star
+        fun bind(reviewData: ReviewData) {
+            binding.nicknameTxt.text = reviewData.nickname
+            binding.detailTxt.text = reviewData.detail
+            binding.ratingBar.rating = reviewData.star
         }
     }
 }

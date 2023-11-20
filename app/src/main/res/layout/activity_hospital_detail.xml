@@ -22,9 +22,10 @@
         <ImageView
             android:id="@+id/hospitalIv"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background" />
 
         <TextView
@@ -63,22 +64,41 @@
             app:layout_constraintTop_toTopOf="@id/ratingbar1" />
 
         <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="진료 시간"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/textcolor"
+            app:layout_constraintTop_toBottomOf="@id/hospitalNameTxt"
+            app:layout_constraintLeft_toLeftOf="@id/hospitalNameTxt" />
+
+        <TextView
+            android:id="@+id/availableTimeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:00 ~ 12:00"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toRightOf="@id/time"
+            app:layout_constraintTop_toTopOf="@id/time"
+            app:layout_constraintBottom_toBottomOf="@id/time" />
+
+        <TextView
             android:id="@+id/textview2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="전화번호"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/textcolor"
             app:layout_constraintLeft_toLeftOf="@id/hospitalNameTxt"
-            app:layout_constraintTop_toBottomOf="@id/hospitalNameTxt"/>
+            app:layout_constraintTop_toBottomOf="@id/time"/>
 
         <TextView
             android:id="@+id/callNumTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="매일"
-            android:layout_marginLeft="10dp"
-            app:layout_constraintLeft_toRightOf="@+id/textview2"
+            android:text="051-123-4567"
+            app:layout_constraintLeft_toLeftOf="@+id/availableTimeTxt"
             app:layout_constraintTop_toTopOf="@+id/textview2"
             app:layout_constraintBottom_toBottomOf="@+id/textview2"/>
 

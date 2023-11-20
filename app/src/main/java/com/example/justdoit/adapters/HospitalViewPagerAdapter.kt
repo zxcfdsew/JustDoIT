@@ -6,13 +6,17 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.justdoit.fragment.HospitalInfoFragment
 import com.example.justdoit.fragment.HospitalReviewFragment
 
-class HospitalViewPagerAdapter(fragment: FragmentActivity, private val pageCount: Int, private val hospitalId: String): FragmentStateAdapter(fragment) {
+class HospitalViewPagerAdapter(
+    fragment: FragmentActivity,
+    private val pageCount: Int,
+    private val hospitalId: String
+) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return pageCount
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when(position) {
+        return when (position) {
             0 -> HospitalInfoFragment(hospitalId)
             else -> HospitalReviewFragment(hospitalId)
         }

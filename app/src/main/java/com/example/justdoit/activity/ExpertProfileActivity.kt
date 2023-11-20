@@ -62,9 +62,20 @@ class ExpertProfileActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val datas = task.result
                 binding.expertNameTxt.text = datas.get("name").toString()
-                binding.ratingTxt.text = datas.get("score").toString()
                 binding.availableTimeTxt.text = datas.get("availableTime").toString()
                 binding.phoneNumTxt.text = datas.get("phoneNum").toString()
+
+                val reviewsData = datas.get("review") as ArrayList<Map<String, String>>
+                var reviewCount = 0
+                var allScore = 0F
+                for (rate in reviewsData) {
+                    allScore += rate.get("ratingScore").toString().toFloat()
+                    reviewCount++
+                }
+                var ratingScore = allScore / reviewCount
+                var ratingScoreString = if (ratingScore.isNaN()) "0" else String.format("%.1f", ratingScore)
+                db.update("score", ratingScoreString)
+                binding.ratingTxt.text = ratingScoreString
             }
         }
 
@@ -80,6 +91,8 @@ class ExpertProfileActivity : AppCompatActivity() {
         binding.reviewBtn.setOnClickListener {
             val reviewIntent = Intent(this, AddReviewActivity::class.java)
             reviewIntent.putExtra("from", "expert")
+            reviewIntent.putExtra("uid", expertUid)
+            reviewIntent.putExtra("userNickName", userNickname)
             startActivity(reviewIntent)
         }
 

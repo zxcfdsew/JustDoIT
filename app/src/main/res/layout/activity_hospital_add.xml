@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_purple"
+    android:background="@color/light_sky"
     android:orientation="vertical"
-    tools:context=".activity.ExpertAddActivity">
+    tools:context=".activity.HospitalAddActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -30,14 +30,14 @@
             android:layout_height="40dp"
             android:background="@drawable/background_white_round"
             android:gravity="center_vertical"
-            android:hint="홍길동"
+            android:hint="부민병원"
             android:paddingLeft="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="상담가능시간" />
+            android:text="진료시간" />
 
         <EditText
             android:id="@+id/availableTimeEdt"
@@ -52,30 +52,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="연락처" />
+            android:text="전화번호" />
 
         <EditText
-            android:id="@+id/phoneNumEdt"
+            android:id="@+id/hospitalNumEdt"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/background_white_round"
             android:gravity="center_vertical"
-            android:hint="010-0000-0000"
+            android:hint="051-000-0000"
             android:paddingLeft="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="소개글" />
+            android:text="병원주소" />
 
         <EditText
-            android:id="@+id/introduceEdt"
+            android:id="@+id/addressEdt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/background_white_round"
+            android:gravity="center_vertical"
+            android:hint="부산 사상구"
+            android:paddingLeft="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="정보" />
+
+        <EditText
+            android:id="@+id/detailEdt"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="@drawable/background_white_round"
             android:gravity="top"
-            android:hint="소개글을 작성해주세요"
+            android:hint="병원 정보를 작성해주세요"
             android:padding="5dp" />
 
     </LinearLayout>

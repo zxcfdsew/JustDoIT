@@ -22,13 +22,13 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profileImg"
         tools:layout_editor_absoluteY="10dp">
@@ -37,22 +37,54 @@
             android:id="@+id/nameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="이름"
             android:textSize="16sp"
-            android:text="이름" />
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/availableTime"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/baseline_access_time_24"
+            app:layout_constraintTop_toBottomOf="@id/nameTxt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/textcolor" />
 
         <TextView
             android:id="@+id/availableTimeTxt"
             android:layout_width="wrap_content"
-            android:text="상담 가능 시간"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="10:00 ~ 12:00"
+            app:layout_constraintLeft_toRightOf="@id/availableTime"
+            app:layout_constraintTop_toTopOf="@id/availableTime"
+            app:layout_constraintBottom_toBottomOf="@id/availableTime" />
+
+        <ImageView
+            android:id="@+id/phoneNum"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:textColor="@color/textcolor"
+            android:src="@drawable/outline_phone_24"
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toBottomOf="@id/availableTime"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="연락처" />
 
         <TextView
             android:id="@+id/phoneNumTxt"
             android:layout_width="wrap_content"
-            android:text="휴대폰 번호"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="010-1111-2222"
+            app:layout_constraintTop_toTopOf="@id/phoneNum"
+            app:layout_constraintBottom_toBottomOf="@id/phoneNum"
+            app:layout_constraintLeft_toLeftOf="@id/availableTimeTxt" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/profileImg"

@@ -88,26 +88,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.custom_toolbar, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.test1 -> {
-                Toast.makeText(this, "test1", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.test2 -> {
-                Toast.makeText(this, "test2", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            else -> return false
-        }
-    }
-
     private fun expertVisibility(state: Boolean) {
         if (state) {
             binding.customSwitch.visibility = View.VISIBLE

@@ -1,6 +1,6 @@
 package com.example.justdoit.fragment
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -8,14 +8,18 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justdoit.R
+import com.example.justdoit.activity.HospitalAddActivity
 import com.example.justdoit.adapters.HospitalAdapter
 import com.example.justdoit.databinding.FragmentHospitalBinding
-import com.example.justdoit.datas.HospitalList
+import com.example.justdoit.datas.HospitalInfo
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class HospitalFragment : Fragment() {
 
     private var mBinding: FragmentHospitalBinding? = null
     private val binding get() = mBinding!!
+    private val mStore = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +36,8 @@ class HospitalFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.addHospital -> {
-                        Toast.makeText(context, "병원 추가 클릭됨", Toast.LENGTH_SHORT).show()
+                        val hospitalIntent = Intent(context, HospitalAddActivity::class.java)
+                        startActivity(hospitalIntent)
                     }
                 }
                 return false
@@ -42,31 +47,36 @@ class HospitalFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val hospitalList = arrayListOf(
-            HospitalList("병원1", "010-1111-2222", "안녕하세요"),
-            HospitalList("병원2", "010-1231-3434", "반갑습니다"),
-            HospitalList("병원3", "010-5938-0099", "어서오세요"),
-            HospitalList("병원4", "010-5678-4521", "노답이네")
-        )
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.adapter = HospitalAdapter(hospitalList)
-
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         mBinding = null
     }
 
-//    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
-//        val inflater = super.onGetLayoutInflater(savedInstanceState)
-//        val contextThemeWrapper: Context = ContextThemeWrapper(requireActivity(), R.style.Theme_JustDoIT_Hospital)
-//        return inflater.cloneInContext(contextThemeWrapper)
-//    }
+    override fun onResume() {
+        super.onResume()
+
+        activity?.invalidateOptionsMenu()
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.setHasFixedSize(true)
+
+        var hospitalList = arrayListOf<HospitalInfo>()
+
+        mStore.collection("HospitalList").get().addOnSuccessListener { result ->
+            for (hospitalInfo in result) {
+                hospitalList.add(
+                    HospitalInfo(
+                        hospitalInfo.get("hospitalUid").toString(),
+                        hospitalInfo.get("name").toString(),
+                        hospitalInfo.get("availableTime").toString(),
+                        hospitalInfo.get("hospitalNum").toString(),
+                        hospitalInfo.get("address").toString(),
+                        hospitalInfo.get("detail").toString()
+                    )
+                )
+            }
+            binding.recyclerView.adapter = HospitalAdapter(hospitalList)
+        }
+    }
 
 }

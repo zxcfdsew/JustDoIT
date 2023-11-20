@@ -52,16 +52,28 @@ class ExpertFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mBinding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        activity?.invalidateOptionsMenu()
+
         binding.recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.setHasFixedSize(true)
 
-        var expertList = arrayListOf<ExpertInfo>(
-        )
+        var expertList = arrayListOf<ExpertInfo>()
 
         mStore.collection("ExpertList").get().addOnSuccessListener { result ->
             for (expertInfo in result) {
-                Log.d("firestore", expertInfo.get("expertUid").toString())
                 expertList.add(
                     ExpertInfo(
                         expertInfo.get("expertUid").toString(),
@@ -74,17 +86,6 @@ class ExpertFragment : Fragment() {
             }
             binding.recyclerView.adapter = ExpertAdapter(expertList)
         }
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mBinding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activity?.invalidateOptionsMenu()
     }
 
 }

@@ -6,31 +6,32 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.example.justdoit.R
-import com.example.justdoit.databinding.ActivityExpertAddBinding
-import com.example.justdoit.datas.ExpertInfo
+import com.example.justdoit.databinding.ActivityHospitalAddBinding
+import com.example.justdoit.datas.HospitalInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ExpertAddActivity : AppCompatActivity() {
+class HospitalAddActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityExpertAddBinding
+    private lateinit var binding: ActivityHospitalAddBinding
     private val mStore: FirebaseFirestore = Firebase.firestore
     private val mAuth: FirebaseAuth = Firebase.auth
-    private var expertUid: String? = null
+    private var hospitalUid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityExpertAddBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_JustDoIT_Hospital)
+        binding = ActivityHospitalAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = "병원 추가"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "전문가 추가"
 
-        expertUid = mStore.collection("ExpertList").document().id
+        hospitalUid = mStore.collection("HospitalList").document().id
 
     }
 
@@ -43,17 +44,18 @@ class ExpertAddActivity : AppCompatActivity() {
         when (item.itemId) {
             android.R.id.home -> onBackPressedDispatcher.onBackPressed()
             R.id.saveItem -> {
-                var expertInfo = ExpertInfo(
-                    expertUid!!,
+                var hospitalData = HospitalInfo(
+                    hospitalUid!!,
                     binding.nameEdt.text.toString(),
                     binding.availableTimeEdt.text.toString(),
-                    binding.phoneNumEdt.text.toString(),
-                    binding.introduceEdt.text.toString()
+                    binding.hospitalNumEdt.text.toString(),
+                    binding.addressEdt.text.toString(),
+                    binding.detailEdt.text.toString()
                 )
-                mStore.collection("ExpertList").document(expertUid!!).set(expertInfo).addOnCompleteListener { task ->
+                mStore.collection("HospitalList").document(hospitalUid!!).set(hospitalData).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val defaultData = mapOf("review" to ArrayList<Map<String, String>>(), "score" to "0")
-                        mStore.collection("ExpertList").document(expertUid!!).update(defaultData)
+                        mStore.collection("HospitalList").document(hospitalUid!!).update(defaultData)
                         Toast.makeText(this, "저장되었습니다", Toast.LENGTH_SHORT).show()
                         finish()
                     }
