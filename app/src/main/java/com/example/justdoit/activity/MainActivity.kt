@@ -7,6 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.justdoit.R
 import com.example.justdoit.databinding.ActivityMainBinding
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
         supportActionBar?.title = "홈"
 //        뒤로가기 버튼
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -51,6 +55,9 @@ class MainActivity : AppCompatActivity() {
                     setFragment(ExpertFragment())
                     supportActionBar?.title = "help"
                     expertVisibility(true)
+                    binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_purple))
+                    binding.customSwitch.isSelected = false
+                    toolbarBackgroundColor = false
                 }
                 R.id.item_fragment_setting -> {
                     setFragment(InfoFragment())
@@ -63,12 +70,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.customSwitch.setOnClickListener {
             if (binding.customSwitch.isSelected) {
-                binding.toolbar.setBackgroundColor(Color.parseColor("#FFF9F6FF")) // light_purple
+                binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_purple))
                 binding.customSwitch.isSelected = false
                 toolbarBackgroundColor = false
                 setFragment(ExpertFragment())
             } else {
-                binding.toolbar.setBackgroundColor(Color.parseColor("#FFF5F6FF"))  // light_sky
+                binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_sky))
                 binding.customSwitch.isSelected = true
                 toolbarBackgroundColor = true
                 setFragment(HospitalFragment())
@@ -79,26 +86,6 @@ class MainActivity : AppCompatActivity() {
 
     fun setFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.custom_toolbar, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.test1 -> {
-                Toast.makeText(this, "test1", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.test2 -> {
-                Toast.makeText(this, "test2", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            else -> return false
-        }
     }
 
     private fun expertVisibility(state: Boolean) {

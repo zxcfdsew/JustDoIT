@@ -84,6 +84,25 @@
             app:layout_constraintBottom_toBottomOf="@id/phoneNum"
             app:layout_constraintLeft_toLeftOf="@id/availableTimeTxt" />
 
+        <ImageView
+            android:id="@+id/location"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/outline_location_on_24"
+            app:layout_constraintTop_toBottomOf="@id/phoneNum"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/addressTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="부산"
+            app:layout_constraintTop_toTopOf="@id/location"
+            app:layout_constraintBottom_toBottomOf="@id/location"
+            app:layout_constraintLeft_toLeftOf="@id/phoneNumTxt" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

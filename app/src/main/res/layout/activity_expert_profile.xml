@@ -4,45 +4,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_purple"
     android:orientation="vertical"
     tools:context=".activity.ExpertProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="10dp">
+        android:paddingEnd="20dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="이름"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="130dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/expertNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이름"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:numStars="1"
+                    android:progressTint="@color/orange"
+                    android:rating="1"
+                    android:secondaryProgressTint="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@id/expertNameTxt"
+                    app:layout_constraintLeft_toRightOf="@id/expertNameTxt"
+                    app:layout_constraintTop_toTopOf="@id/expertNameTxt" />
+
+                <TextView
+                    android:id="@+id/ratingTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@id/ratingBar"
+                    app:layout_constraintLeft_toRightOf="@id/ratingBar"
+                    app:layout_constraintTop_toTopOf="@id/ratingBar" />
+
+                <TextView
+                    android:id="@+id/availableTimeGuildline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="상담 가능 시간 "
+                    android:textColor="@color/textcolor"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/expertNameTxt" />
+
+                <TextView
+                    android:id="@+id/availableTimeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="시간"
+                    app:layout_constraintBottom_toBottomOf="@id/availableTimeGuildline"
+                    app:layout_constraintLeft_toRightOf="@id/availableTimeGuildline"
+                    app:layout_constraintTop_toTopOf="@id/availableTimeGuildline" />
+
+                <TextView
+                    android:id="@+id/phoneNumGuildline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="연락처"
+                    android:textColor="@color/textcolor"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/availableTimeGuildline" />
+
+                <TextView
+                    android:id="@+id/phoneNumTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전화번호"
+                    app:layout_constraintBottom_toBottomOf="@id/phoneNumGuildline"
+                    app:layout_constraintLeft_toLeftOf="@id/availableTimeTxt"
+                    app:layout_constraintTop_toTopOf="@id/phoneNumGuildline" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            app:tabIndicatorAnimationMode="elastic"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_purple"
+            app:tabIndicatorColor="@color/deep_purple"
+            app:tabSelectedTextColor="@color/deep_purple"
+            app:tabTextColor="@color/textcolor" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +143,7 @@
                 android:id="@+id/favoriteIv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/baseline_favorite_border_24"
+                android:src="@drawable/favorite_button"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/consultingBtn"
                 app:layout_constraintTop_toTopOf="parent" />

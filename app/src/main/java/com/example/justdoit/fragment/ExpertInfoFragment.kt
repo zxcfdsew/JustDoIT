@@ -1,46 +1,43 @@
 package com.example.justdoit.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.example.justdoit.databinding.FragmentHomeBinding
-
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
+import com.example.justdoit.databinding.FragmentExpertIntroBinding
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-
-class HomeFragment : Fragment() {
-
-    private var mBinding : FragmentHomeBinding? = null
+class ExpertInfoFragment(var Uid: String) : Fragment() {
+    private var mBinding: FragmentExpertIntroBinding? = null
     private val binding get() = mBinding!!
-
-    private lateinit var mAuth: FirebaseAuth
+    private val mStore = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        mBinding = FragmentExpertIntroBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mAuth = Firebase.auth
-        binding.testUidTxt.text = mAuth.currentUser!!.uid
+        val db = mStore.collection("ExpertList").document(Uid)
+        db.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val data = task.result
+                binding.introduceTxt.text = data.get("introduce").toString()
+
+            }
+        }
 
     }
 
@@ -48,5 +45,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         mBinding = null
     }
-
 }
