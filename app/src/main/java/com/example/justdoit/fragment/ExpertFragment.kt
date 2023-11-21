@@ -18,15 +18,16 @@ import com.google.firebase.ktx.Firebase
 
 class ExpertFragment : Fragment() {
 
-    private var mBinding: FragmentExpertBinding? = null
-    private val binding get() = mBinding!!
+//    private var mBinding: FragmentExpertBinding? = null
+//    private val binding get() = mBinding!!
+    private lateinit var binding : FragmentExpertBinding
     private val mStore = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentExpertBinding.inflate(inflater, container, false)
+        binding = FragmentExpertBinding.inflate(inflater, container, false)
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -56,10 +57,10 @@ class ExpertFragment : Fragment() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mBinding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        mBinding = null
+//    }
 
     override fun onResume() {
         super.onResume()

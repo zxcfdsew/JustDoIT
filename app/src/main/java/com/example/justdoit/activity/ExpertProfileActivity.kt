@@ -26,7 +26,8 @@ class ExpertProfileActivity : AppCompatActivity() {
     private val binding get() = mBinding!!
     private val mStore = Firebase.firestore
     private val mAuth: FirebaseAuth = Firebase.auth
-    private lateinit var userNickname: String;
+    private lateinit var userNickname: String
+    private lateinit var expertUid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,7 @@ class ExpertProfileActivity : AppCompatActivity() {
             }
         }
 
-        val expertUid = intent.getStringExtra("expertUid").toString()
+        expertUid = intent.getStringExtra("expertUid").toString()
 
         val db = mStore.collection("ExpertList").document(expertUid!!)
 
@@ -103,6 +104,21 @@ class ExpertProfileActivity : AppCompatActivity() {
             android.R.id.home -> onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        var userId = mAuth.currentUser?.uid.toString()
+        var wishListDB = mStore.collection("WishList").document(userId)
+        var isSelected = binding.favoriteIv.isSelected.toString()
+        var wishData = mapOf("type" to "Expert", "userId" to userId, "documentId" to expertUid, "isSelected" to isSelected)
+        wishListDB.update("wishList", FieldValue.arrayUnion(wishData)).addOnCompleteListener {task ->
+            if (task.isSuccessful) {
+                Log.d("wishList", "task successful")
+            } else {
+                // TODO 저장된 데이터가 없을 때 코드 실행할 코드 추가하기
+            }
+        }
     }
 
 }

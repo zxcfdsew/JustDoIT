@@ -61,7 +61,6 @@ class ExpertReviewFragment(val Uid: String) : Fragment() {
                 }
             }
         }
-
     }
 
     override fun onPause() {

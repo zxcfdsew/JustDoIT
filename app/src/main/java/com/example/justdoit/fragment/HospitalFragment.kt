@@ -17,8 +17,9 @@ import com.google.firebase.ktx.Firebase
 
 class HospitalFragment : Fragment() {
 
-    private var mBinding: FragmentHospitalBinding? = null
-    private val binding get() = mBinding!!
+//    private var mBinding: FragmentHospitalBinding? = null
+//    private val binding get() = mBinding!!
+    private lateinit var binding: FragmentHospitalBinding
     private val mStore = Firebase.firestore
 
     override fun onCreateView(
@@ -26,7 +27,7 @@ class HospitalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myInflater = inflater.cloneInContext(ContextThemeWrapper(requireActivity(), R.style.Theme_JustDoIT_Hospital))
-        mBinding = FragmentHospitalBinding.inflate(myInflater, container, false)
+        binding = FragmentHospitalBinding.inflate(myInflater, container, false)
         val menuHost = requireActivity()
         menuHost.addMenuProvider(object: MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -47,10 +48,10 @@ class HospitalFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mBinding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        mBinding = null
+//    }
 
     override fun onResume() {
         super.onResume()
