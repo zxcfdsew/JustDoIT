@@ -22,7 +22,8 @@ class DiarydetailActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         day = intent.getStringExtra("day").toString()
         Log.d("상세에서 받은 날짜", day)
-        supportActionBar?.title = day
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false)
+       binding.toolbarTitle.text = day
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -60,6 +61,7 @@ class DiarydetailActivity : AppCompatActivity() {
                 val editor = pref.edit()
                 editor.remove("$day-title")
                 editor.remove("$day-content")
+                editor.remove("$day-time")
                 editor.apply()
                 Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 val editor2 = pref2.edit()

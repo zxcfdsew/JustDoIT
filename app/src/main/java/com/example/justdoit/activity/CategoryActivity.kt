@@ -23,54 +23,41 @@ class CategoryActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        var category = ""
-        binding.chipGroup.setOnCheckedChangeListener { group, checkedIds ->
-            val intent = Intent(this, CommunityAddActivity::class.java)
-            Log.d("test", "Click: $checkedIds")
-            when(checkedIds){
-             R.id.chip1 ->{
-                    category = "일반고민"
-                 Log.d("test", "Click: $checkedIds")
-                    intent.putExtra("category","일반고민")
-                    startActivity(intent)
-                }
-                R.id.chip2 ->{
-                    category = "취업"
-                    intent.putExtra("category","취업")
-                    finish()
-                }
-                R.id.chip3 ->{
-                    category = "진로"
-                    intent.putExtra("category","진로")
-                    finish()
-                }
-                R.id.chip4 ->{
-                    category = "상당"
-                    intent.putExtra("category","상당")
-                    finish()
-                }
-                R.id.chip5 ->{
-                    category = "5"
-                    intent.putExtra("category","5")
-                    finish()
-                }
-                R.id.chip6 ->{
-                    category = "6"
-                    intent.putExtra("category","6")
-                    finish()
-                }
 
-            }
-            if (intent.hasExtra("category")) {
-                startActivity(intent)
-            }
+        binding.chip1.setOnClickListener {
+            intent("일반고민")
         }
-        binding.chip1.setOnCheckedChangeListener { compoundButton, b ->
-            if (b) {
-                val intent = Intent(this, CommunityAddActivity::class.java)
-                intent.putExtra("category","일반고민")
-                startActivity(intent)
-            }
+        binding.chip2.setOnClickListener {
+            intent("취업/진로")
         }
+        binding.chip3.setOnClickListener {
+            intent("직장")
+        }
+        binding.chip4.setOnClickListener {
+            intent("연애")
+        }
+        binding.chip5.setOnClickListener {
+            intent("성추행")
+        }
+        binding.chip6.setOnClickListener {
+            intent("결혼/육아")
+        }
+        binding.chip7.setOnClickListener {
+            intent("대인관계")
+        }
+        binding.chip8.setOnClickListener {
+            intent("외모")
+        }
+        binding.chip9.setOnClickListener {
+            intent("가족")
+        }
+
+    }
+
+    private fun intent(category:String){
+        val intent = Intent()
+        intent.putExtra("category", category)
+        setResult(RESULT_OK, intent)
+        finish()
     }
 }
