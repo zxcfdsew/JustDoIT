@@ -22,10 +22,11 @@ class DiarydetailActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         day = intent.getStringExtra("day").toString()
         Log.d("상세에서 받은 날짜", day)
-        supportActionBar?.title = day
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false)
+       binding.toolbarTitle.text = day
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
     }
@@ -45,6 +46,7 @@ class DiarydetailActivity : AppCompatActivity() {
     //액션버튼 클릭 했을 때
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val pref = getSharedPreferences("Diary", Context.MODE_PRIVATE)
+        val pref2 = getSharedPreferences("All", Context.MODE_PRIVATE)
         when (item?.itemId) {
             R.id.edit -> {
                 var intent = Intent(this, DiaryaddActivity::class.java)
@@ -56,12 +58,15 @@ class DiarydetailActivity : AppCompatActivity() {
                 return true
             }
             R.id.delete -> {
-                val pref = getSharedPreferences("Diary", MODE_PRIVATE)
                 val editor = pref.edit()
                 editor.remove("$day-title")
                 editor.remove("$day-content")
+                editor.remove("$day-time")
                 editor.apply()
                 Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                val editor2 = pref2.edit()
+                editor2.remove(day)
+                editor2.apply()
                 finish()
                 return super.onOptionsItemSelected(item)
             }

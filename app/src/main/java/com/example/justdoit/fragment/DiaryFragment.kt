@@ -100,9 +100,11 @@ class DiaryFragment : Fragment() {
             if (pref.contains("$day-title")) {
                 val title = pref.getString("$day-title", "제목 없음")
                 val content = pref.getString("$day-content", "내용 없음")
+                val time = pref.getString("$day-time", "시간 없음")
                 binding.summaryLayout.isVisible = true
                 binding.titleTv.text = title
                 binding.contentTv.text = content
+                binding.timeTv.text = time
             } else {
                 binding.summaryLayout.isVisible = false
             }

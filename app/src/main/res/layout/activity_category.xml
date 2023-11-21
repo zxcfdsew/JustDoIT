@@ -15,6 +15,7 @@
         android:title="글 작성" />
 
     <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp">
@@ -41,31 +42,36 @@
             android:id="@+id/chip4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일반 고민" />
+            android:text="연애" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일반 고민" />
+            android:text="성추행" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일반 고민" />
+            android:text="결혼/육아" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일반 고민" />
+            android:text="대인관계" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일반 고민" />
+            android:text="외모" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가족" />
 
 
     </com.google.android.material.chip.ChipGroup>
