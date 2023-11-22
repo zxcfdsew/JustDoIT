@@ -14,25 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:selectedWeekBackgroundColor="@color/purple"/>
-  
     <LinearLayout
         android:layout_below="@+id/calendarView"
         android:id="@+id/summaryLayout"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:visibility="gone"
         android:padding="10dp"
         android:background="@drawable/background_white_round"
-        android:elevation="1dp"
-        android:orientation="vertical" >
-
+        android:elevation="1dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:id="@+id/titleTv"/>
-      
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/timeTv"/>
-      
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

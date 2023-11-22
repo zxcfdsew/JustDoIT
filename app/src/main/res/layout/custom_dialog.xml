@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@drawable/background_dialog">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="삭제하시겠습니까?"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:padding="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/no"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="취소"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/background_gray_round"
+        android:padding="10dp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/yes"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:padding="10dp"
+        android:background="@drawable/custom_button_1"
+        android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>
