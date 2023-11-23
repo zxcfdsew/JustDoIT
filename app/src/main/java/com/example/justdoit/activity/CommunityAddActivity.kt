@@ -64,7 +64,6 @@ class CommunityAddActivity : AppCompatActivity() {
         Log.d("수정여부", isEditMode.toString())
         if (isEditMode) {
             val title = intent.getStringExtra("editTitle").toString()
-            Log.d("타이틀", title)
             val content = intent.getStringExtra("editContent").toString()
             val documentId = intent.getStringExtra("documentId").toString()
             binding.titleEdt.setText(title)

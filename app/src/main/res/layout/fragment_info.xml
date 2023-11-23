@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".fragment.InfoFragment">
 
+    <TextView
+        android:id="@+id/nicknameTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:gravity="center"
+        android:background="@drawable/background_white_round"
+        android:text="닉네임"
+        android:elevation="3dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="5dp" />
+    <TextView
+        android:id="@+id/mypostTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:drawableStart="@drawable/baseline_event_note_24"
+        android:drawablePadding="8dp"
+        android:text="내가 쓴 글" />
+
+    <TextView
+        android:id="@+id/mycommentTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/baseline_chat_24"
+        android:drawablePadding="8dp"
+        android:paddingVertical="10dp"
+        android:text="댓글 단 글" />
+
+    <TextView
+        android:id="@+id/reviewTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/baseline_mark_unread_chat_alt_24"
+        android:drawablePadding="8dp"
+        android:paddingVertical="10dp"
+        android:text="리뷰 관리" />
+
+    <TextView
+        android:id="@+id/heartTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/baseline_favorite_border_24"
+        android:drawablePadding="8dp"
+        android:paddingVertical="10dp"
+        android:text="찜 목록" />
 
 
-</FrameLayout>
+</LinearLayout>

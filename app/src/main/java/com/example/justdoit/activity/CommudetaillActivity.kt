@@ -51,7 +51,6 @@ class CommudetaillActivity : AppCompatActivity() {
 
         mAuth = Firebase.auth
 
-
     }
 
     override fun onResume() {
@@ -69,7 +68,7 @@ class CommudetaillActivity : AppCompatActivity() {
                     Log.d("파이어베이스", "실행")
                     binding.titleTv.text = documentSnapshot.getString("title").toString()
                     binding.contentTv.text = documentSnapshot.getString("content").toString()
-                    binding.timeTv.text = documentSnapshot.getString("time").toString()
+                    binding.timeTv.text =  getIntent().getStringExtra("time").toString()
                     val commentArray =
                         documentSnapshot.get("comments") as? ArrayList<HashMap<String, String>>
                     val heartCount = documentSnapshot.get("heartCount") as? ArrayList<String>

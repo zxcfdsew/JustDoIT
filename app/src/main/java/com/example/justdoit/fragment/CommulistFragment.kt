@@ -1,11 +1,13 @@
 package com.example.justdoit.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justdoit.adapters.CommunityAdapter
 import com.example.justdoit.databinding.FragmentCommulistBinding
@@ -15,6 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDateTime
 
 
 class CommulistFragment : Fragment() {
@@ -46,6 +49,7 @@ class CommulistFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
         val position = arguments?.getInt("position", 0)
@@ -66,80 +70,113 @@ class CommulistFragment : Fragment() {
 
 
         var communityList = ArrayList<Community>()
+        val current = LocalDateTime.now().toString()
         if (category == 0) {
-            Log.d("카테고리리스트1","실행")
             mStore.collection("Community").orderBy("time", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         communityList.clear()
-
                         for (document in task.result) {
-
-                            mStore.collection("Community").document(document["documentUid"] as String).get()
+                            mStore.collection("Community")
+                                .document(document["documentUid"] as String).get()
                                 .addOnSuccessListener { documentSnapshot ->
-                                    val heartCount = documentSnapshot.get("heartCount") as? ArrayList<String>
+                                    val heartCount =
+                                        documentSnapshot.get("heartCount") as? ArrayList<String>
                                     val heartSize = heartCount?.size ?: 0
+                                    val commentCount =
+                                        documentSnapshot.get("comments") as? ArrayList<HashMap<String, String>>
+                                    val commentSize = commentCount?.size ?: 0
+                                    val addTime = document["time"] as String
+                                    var formatTime = ""
+                                    if (current.substring(0, 10) == addTime.substring(0, 10)) {
+                                        formatTime = addTime.substring(11, 16)
+                                    } else {
+                                        formatTime = addTime.substring(0, 10)
+                                    }
+
                                     val item = Community(
                                         document["title"] as String,
                                         document["content"] as String,
-                                        document["time"] as String,
+                                        formatTime,
                                         document["category"] as String,
                                         document["documentUid"] as String,
                                         document["uid"] as String,
-                                        heartSize.toString()
+                                        heartSize.toString(),
+                                        commentSize.toString()
                                     )
                                     communityList.add(item)
-                                    Log.d("카테고리리스트111",communityList.toString())
-                                    binding.recyclerView.layoutManager =
-                                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                                    Log.d("정렬 전 리스트 반보", communityList.toString())
+                                    binding.recyclerView.layoutManager = LinearLayoutManager(
+                                        context,
+                                        LinearLayoutManager.VERTICAL,
+                                        false
+                                    )
+                                    val reverseComparator =
+                                        compareByDescending<Community> { it.time }
+                                    communityList.sortWith(reverseComparator)
+                                    Log.d("정렬 후 리스트", communityList.toString())
                                     binding.recyclerView.adapter = CommunityAdapter(communityList)
                                 }
-                            Log.d("카테고리리스트1",communityList.toString())
 
                         }
-                        Log.d("카테고리리스트1",communityList.toString())
 
 
                     }
+
+
                 }
         } else {
-            Log.d("카테고리리스트2","실행")
-            mStore.collection("Community").whereEqualTo("category", category).orderBy("time",Query.Direction.DESCENDING).get()
+            Log.d("카테고리리스트2", "실행")
+            mStore.collection("Community").whereEqualTo("category", category)
+                .orderBy("time", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Log.d("2성공",task.result.toString())
+                        Log.d("2성공", task.result.toString())
                         for (document in task.result) {
 
-                            mStore.collection("Community").document(document["documentUid"] as String).get()
+                            mStore.collection("Community")
+                                .document(document["documentUid"] as String).get()
                                 .addOnSuccessListener { documentSnapshot ->
-                                    val heartCount = documentSnapshot.get("heartCount") as? ArrayList<String>
+                                    val heartCount =
+                                        documentSnapshot.get("heartCount") as? ArrayList<String>
                                     val heartSize = heartCount?.size ?: 0
+                                    val addTime = document["time"] as String
+                                    var formatTime = ""
+                                    if (current.substring(0, 10) == addTime.substring(0, 10)) {
+                                        formatTime = addTime.substring(11, 16)
+                                    } else {
+                                        formatTime = addTime.substring(0, 10)
+                                    }
                                     val item = Community(
                                         document["title"] as String,
                                         document["content"] as String,
-                                        document["time"] as String,
+                                        formatTime,
                                         document["category"] as String,
                                         document["documentUid"] as String,
                                         document["uid"] as String,
                                         heartSize.toString()
                                     )
                                     communityList.add(item)
-                                    Log.d("카테고리리스트111",communityList.toString())
-                                    binding.recyclerView.layoutManager =
-                                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                                    communityList.add(item)
+                                    Log.d("정렬 전 리스트 반보", communityList.toString())
+                                    binding.recyclerView.layoutManager = LinearLayoutManager(
+                                        context,
+                                        LinearLayoutManager.VERTICAL,
+                                        false
+                                    )
+                                    val reverseComparator =
+                                        compareByDescending<Community> { it.time }
+                                    communityList.sortWith(reverseComparator)
+                                    Log.d("정렬 후 리스트", communityList.toString())
                                     binding.recyclerView.adapter = CommunityAdapter(communityList)
+                                    Log.d("카테고리리스트111", communityList.toString())
                                 }
-                            Log.d("카테고리리스트1",communityList.toString())
+                            Log.d("카테고리리스트1", communityList.toString())
 
                         }
-
-                    binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    binding.recyclerView.adapter = CommunityAdapter(communityList)
                     }
                 }
-                .addOnFailureListener {exception ->
-                    Log.d("카테고리리스트2", "실행안됨", exception)
-                }
+
 
         }
     }

@@ -58,7 +58,7 @@ class DiaryaddActivity : AppCompatActivity() {
         val title = binding.titleEdt.text.toString()
         val content = binding.contentEdt.text.toString()
         val time =  System.currentTimeMillis()
-        var dateFormat = SimpleDateFormat("mm:ss")
+        var dateFormat = SimpleDateFormat("k:mm")
         var getTime = dateFormat.format(time)
         val pref = getSharedPreferences("Diary", Context.MODE_PRIVATE)
         val pref2 = getSharedPreferences("All", Context.MODE_PRIVATE)

@@ -18,6 +18,7 @@ class CategoryActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.title = "카테고리 선택"
         binding.toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()

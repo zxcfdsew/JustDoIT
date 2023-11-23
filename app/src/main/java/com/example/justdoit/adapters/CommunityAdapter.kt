@@ -28,7 +28,6 @@ class CommunityAdapter(var item: ArrayList<Community>) : RecyclerView.Adapter<Co
         holder.contentTv.text = item[position].content
         holder.timeTv.text = item[position].time
         holder.heartCountTv.text = item[position].heartCount
-        holder.sadCountTv.text = item[position].sadCount
         holder.commentCountTv.text = item[position].commentCount
         holder.documentId.text = item[position].documentUid
         holder.uid.text = item[position].uid
@@ -40,7 +39,6 @@ class CommunityAdapter(var item: ArrayList<Community>) : RecyclerView.Adapter<Co
         var contentTv:TextView = itemView.findViewById(R.id.contentTv)
         var timeTv:TextView = itemView.findViewById(R.id.timeTv)
         var heartCountTv:TextView = itemView.findViewById(R.id.heartCountTv)
-        var sadCountTv:TextView = itemView.findViewById(R.id.sadCountTv)
         var commentCountTv:TextView = itemView.findViewById(R.id.commentCountTv)
         var documentId:TextView = itemView.findViewById(R.id.documentId)
         var uid:TextView = itemView.findViewById(R.id.uid)
@@ -51,10 +49,12 @@ class CommunityAdapter(var item: ArrayList<Community>) : RecyclerView.Adapter<Co
                 val documentUid= item[adapterPosition].documentUid.toString()
                 val category= item[adapterPosition].category.toString()
                 val uid= item[adapterPosition].uid.toString()
+                val time= item[adapterPosition].time.toString()
                 Intent(itemView.context, CommudetaillActivity::class.java).apply {
                 putExtra("documentUid", documentUid)
                     putExtra("uid", uid)
                     putExtra("category", category)
+                    putExtra("time", time)
                     Log.d("아이템", documentUid)
                     Log.d("아이템", uid)
                 itemView.context.startActivity(this)
