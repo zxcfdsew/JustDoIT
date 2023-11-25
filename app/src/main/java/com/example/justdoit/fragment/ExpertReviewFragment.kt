@@ -23,6 +23,7 @@ class ExpertReviewFragment(val Uid: String) : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+
         }
     }
 
@@ -42,23 +43,25 @@ class ExpertReviewFragment(val Uid: String) : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.setHasFixedSize(true)
 
         val db = mStore.collection("ExpertList").document(Uid)
         db.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                if (task.result.exists()) {
-                    val datas = task.result.get("review") as ArrayList<Map<String, String>>
-                    for (data in datas) {
-                        reviews.add(ReviewData(
+            if (task.isSuccessful && task.result.exists()) {
+                val datas = task.result.get("review") as ArrayList<Map<String, String>>
+                for (data in datas) {
+                    reviews.add(
+                        ReviewData(
                             data.get("writerNickName").toString(),
                             data.get("ratingScore").toString().toFloat(),
-                            data.get("review").toString()))
-                    }
-                    binding.reviewCountTxt.text = reviews.size.toString()
-                    binding.recyclerView.adapter = ExpertReviewAdapter(reviews)
+                            data.get("review").toString()
+                        )
+                    )
                 }
+                binding.reviewCountTxt.text = reviews.size.toString()
+                binding.recyclerView.adapter = ExpertReviewAdapter(reviews)
             }
         }
     }

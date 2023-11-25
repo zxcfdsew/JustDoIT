@@ -29,6 +29,8 @@ class ExpertReviewAdapter(val reviews: ArrayList<ReviewData>) : RecyclerView.Ada
             binding.nicknameTxt.text = reviewData.nickname
             binding.detailTxt.text = reviewData.detail
             binding.ratingBar.rating = reviewData.star
+
+
         }
     }
 }

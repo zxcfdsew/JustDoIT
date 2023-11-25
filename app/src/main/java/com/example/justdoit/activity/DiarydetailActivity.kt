@@ -23,7 +23,7 @@ class DiarydetailActivity : AppCompatActivity() {
         day = intent.getStringExtra("day").toString()
         Log.d("상세에서 받은 날짜", day)
         getSupportActionBar()?.setDisplayShowTitleEnabled(false)
-       binding.toolbarTitle.text = day
+        binding.toolbarTitle.text = day
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()

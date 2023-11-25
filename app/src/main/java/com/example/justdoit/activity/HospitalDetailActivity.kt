@@ -9,6 +9,7 @@ import com.example.justdoit.adapters.HospitalViewPagerAdapter
 import com.example.justdoit.databinding.ActivityHospitalDetailBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -28,6 +29,7 @@ class HospitalDetailActivity : AppCompatActivity() {
         val getIntent = intent
         val hospitalUid = getIntent.getStringExtra("hospitalUid")
         val db = mStore.collection("HospitalList").document(hospitalUid!!)
+        val userUid = mAuth.currentUser?.uid
 
         mStore.collection("Accounts").document(mAuth.currentUser?.uid.toString()).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -41,10 +43,22 @@ class HospitalDetailActivity : AppCompatActivity() {
 
         binding.favoriteIv.setOnClickListener {
             it.isSelected = !it.isSelected
+            if (it.isSelected) {
+                db.update("favorite", FieldValue.arrayUnion(userUid))
+            } else {
+                db.update("favorite", FieldValue.arrayRemove(userUid))
+            }
         }
+
         db.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val datas = task.result
+
+                val favorite = datas.get("favorite") as? ArrayList<String>
+                if (favorite != null && favorite.contains(userUid)) {
+                    binding.favoriteIv.isSelected = true
+                }
+
                 binding.hospitalNameTxt.text = datas.get("name").toString()
                 binding.callNumTxt.text = datas.get("hospitalNum").toString()
                 binding.addressTxt.text = datas.get("address").toString()

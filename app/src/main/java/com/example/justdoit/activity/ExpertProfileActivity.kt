@@ -6,6 +6,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.RatingBar
@@ -49,9 +50,9 @@ class ExpertProfileActivity : AppCompatActivity() {
         binding.favoriteIv.setOnClickListener {
             it.isSelected = !it.isSelected
             if (it.isSelected) {
-                Log.d("imgTest", "true")
+                db.update("favorite", FieldValue.arrayUnion(userUid))
             } else {
-                Log.d("imgTest", "false")
+                db.update("favorite", FieldValue.arrayRemove(userUid))
             }
         }
 
@@ -62,9 +63,14 @@ class ExpertProfileActivity : AppCompatActivity() {
         db.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val datas = task.result
+                val favorite = datas.get("favorite") as? ArrayList<String>
+                if (favorite != null && favorite.contains(userUid)) {
+                    binding.favoriteIv.isSelected = true
+                }
                 binding.expertNameTxt.text = datas.get("name").toString()
                 binding.availableTimeTxt.text = datas.get("availableTime").toString()
                 binding.phoneNumTxt.text = datas.get("phoneNum").toString()
+
 
                 val reviewsData = datas.get("review") as ArrayList<Map<String, String>>
                 var reviewCount = 0
@@ -73,6 +79,7 @@ class ExpertProfileActivity : AppCompatActivity() {
                     allScore += rate.get("ratingScore").toString().toFloat()
                     reviewCount++
                 }
+
                 var ratingScore = allScore / reviewCount
                 var ratingScoreString = if (ratingScore.isNaN()) "0" else String.format("%.1f", ratingScore)
                 db.update("score", ratingScoreString)
@@ -104,21 +111,6 @@ class ExpertProfileActivity : AppCompatActivity() {
             android.R.id.home -> onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        var userId = mAuth.currentUser?.uid.toString()
-        var wishListDB = mStore.collection("WishList").document(userId)
-        var isSelected = binding.favoriteIv.isSelected.toString()
-        var wishData = mapOf("type" to "Expert", "userId" to userId, "documentId" to expertUid, "isSelected" to isSelected)
-        wishListDB.update("wishList", FieldValue.arrayUnion(wishData)).addOnCompleteListener {task ->
-            if (task.isSuccessful) {
-                Log.d("wishList", "task successful")
-            } else {
-                // TODO 저장된 데이터가 없을 때 코드 실행할 코드 추가하기
-            }
-        }
     }
 
 }
