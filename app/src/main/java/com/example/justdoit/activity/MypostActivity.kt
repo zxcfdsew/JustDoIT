@@ -35,9 +35,11 @@ class MypostActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
         mAuth = Firebase.auth
+
         val currentUid = mAuth.currentUser!!.uid
         val currentTime = LocalDateTime.now().toString()
         val communityList = ArrayList<Community>()
+
         mStore.collection("Community").whereEqualTo("uid",currentUid).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

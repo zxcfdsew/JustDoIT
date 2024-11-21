@@ -91,7 +91,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/expert_recyclerview_item"
-        android:src="@drawable/ic_launcher_background"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"

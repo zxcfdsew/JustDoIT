@@ -1,6 +1,7 @@
 package com.example.justdoit.fragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -15,13 +16,13 @@ import com.example.justdoit.databinding.FragmentExpertBinding
 import com.example.justdoit.datas.ExpertInfo
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 class ExpertFragment : Fragment() {
 
-//    private var mBinding: FragmentExpertBinding? = null
-//    private val binding get() = mBinding!!
-    private lateinit var binding : FragmentExpertBinding
+    private lateinit var binding: FragmentExpertBinding
     private val mStore = Firebase.firestore
+    private lateinit var mStorage: FirebaseStorage
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,14 +54,9 @@ class ExpertFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        mStorage = FirebaseStorage.getInstance()
 
     }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        mBinding = null
-//    }
 
     override fun onResume() {
         super.onResume()
@@ -75,6 +71,7 @@ class ExpertFragment : Fragment() {
 
         mStore.collection("ExpertList").get().addOnSuccessListener { result ->
             for (expertInfo in result) {
+
                 expertList.add(
                     ExpertInfo(
                         expertInfo.get("expertUid").toString(),
@@ -84,9 +81,11 @@ class ExpertFragment : Fragment() {
                         expertInfo.get("introduce").toString()
                     )
                 )
+
             }
             binding.recyclerView.adapter = ExpertAdapter(expertList)
         }
+
     }
 
 }

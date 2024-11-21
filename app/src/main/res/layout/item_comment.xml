@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,49 +11,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
-    <TextView
-        android:id="@+id/nickNameTv"
-        android:text="제목"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textcolor"
-        android:layout_gravity="center" />
 
+        <TextView
+            android:id="@+id/nickNameTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="제목"
+            android:textColor="@color/textcolor" />
 
-        <ImageView
+        <TextView
             android:id="@+id/deleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_more_vert_24"/>
+            android:text="삭제"
+            android:textColor="@color/textcolor" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/commentTv"
-        android:text="제목"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:text="제목" />
+
     <TextView
         android:id="@+id/timeTv"
-        android:text="15:30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="15:30"
         android:textColor="@color/textcolor"
         android:textSize="12sp" />
+
     <TextView
         android:id="@+id/commentId"
-        android:text="제목"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:text="제목"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/writeUid"
-        android:text="제목"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:text="제목"
+        android:visibility="gone" />
 
 
 </LinearLayout>

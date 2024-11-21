@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import com.bumptech.glide.Glide
 import com.example.justdoit.adapters.ExpertViewPagerAdapter
 import com.example.justdoit.adapters.HospitalViewPagerAdapter
 import com.example.justdoit.databinding.ActivityHospitalDetailBinding
@@ -12,6 +13,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 class HospitalDetailActivity : AppCompatActivity() {
 
@@ -20,6 +22,8 @@ class HospitalDetailActivity : AppCompatActivity() {
     private val mStore = Firebase.firestore
     private val mAuth = Firebase.auth
     private lateinit var userNickname: String
+    private lateinit var hospitalUid: String
+    private val mStorage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +31,7 @@ class HospitalDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val getIntent = intent
-        val hospitalUid = getIntent.getStringExtra("hospitalUid")
+        hospitalUid = getIntent.getStringExtra("hospitalUid").toString()
         val db = mStore.collection("HospitalList").document(hospitalUid!!)
         val userUid = mAuth.currentUser?.uid
 
@@ -37,9 +41,15 @@ class HospitalDetailActivity : AppCompatActivity() {
             }
         }
 
+        var imageName = "Hospital_" + hospitalUid
+        val storageRef = mStorage.reference.child("profileImg").child(imageName)
+        storageRef.downloadUrl.addOnSuccessListener { uri ->
+            Glide.with(this).load(uri).into(binding.hospitalIv)
+        }
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "병원 정보"
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding.favoriteIv.setOnClickListener {
             it.isSelected = !it.isSelected
@@ -50,6 +60,36 @@ class HospitalDetailActivity : AppCompatActivity() {
             }
         }
 
+        binding.viewPager.adapter = HospitalViewPagerAdapter(this, 2, hospitalUid)
+        binding.viewPager.isUserInputEnabled = false
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) {tab, position ->
+            when (position) {
+                0 -> tab.text = "소개"
+                1 -> tab.text = "리뷰"
+            }
+        }.attach()
+
+        binding.reviewBtn.setOnClickListener {
+            val reviewIntent = Intent(this, AddReviewActivity::class.java)
+            reviewIntent.putExtra("from", "hospital")
+            reviewIntent.putExtra("uid", hospitalUid)
+            reviewIntent.putExtra("userNickName", userNickname)
+            startActivity(reviewIntent)
+        }
+
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressedDispatcher.onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val db = mStore.collection("HospitalList").document(hospitalUid!!)
+        val userUid = mAuth.currentUser?.uid
         db.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val datas = task.result
@@ -78,28 +118,5 @@ class HospitalDetailActivity : AppCompatActivity() {
             }
         }
 
-        binding.viewPager.adapter = HospitalViewPagerAdapter(this, 2, hospitalUid)
-        binding.viewPager.isUserInputEnabled = false
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) {tab, position ->
-            when (position) {
-                0 -> tab.text = "소개"
-                1 -> tab.text = "리뷰"
-            }
-        }.attach()
-
-        binding.reviewBtn.setOnClickListener {
-            val reviewIntent = Intent(this, AddReviewActivity::class.java)
-            reviewIntent.putExtra("from", "hospital")
-            reviewIntent.putExtra("uid", hospitalUid)
-            reviewIntent.putExtra("userNickName", userNickname)
-            startActivity(reviewIntent)
-        }
-
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> onBackPressedDispatcher.onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

@@ -72,7 +72,9 @@ class CommudetaillActivity : AppCompatActivity() {
                     val commentArray =
                         documentSnapshot.get("comments") as? ArrayList<HashMap<String, String>>
                     val heartCount = documentSnapshot.get("heartCount") as? ArrayList<String>
+                    val heartSize = heartCount?.size ?: 0
                     if (heartCount != null) {
+                        binding.heartCountTv.text = heartSize.toString()
                         for (data in heartCount) {
                             if (data == uid) {
                                 binding.heart.isVisible = true
@@ -101,75 +103,14 @@ class CommudetaillActivity : AppCompatActivity() {
                             LinearLayoutManager(this).orientation
                         )
                         binding.recyclerView.addItemDecoration(dividerItemDecoration)
-                        val commentAdapter = CommentAdapter(commentlist)
+                        val commentAdapter = CommentAdapter(commentlist, documentUid, object:CommentAdapter.Delete{
+                            override fun delete() {
+                                binding.commentCountTv.text = commentlist.size.toString()
+                            }
+
+                        })
                         binding.recyclerView.adapter = commentAdapter
                         commentAdapter.notifyDataSetChanged()
-
-                        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-                            0, ItemTouchHelper.LEFT) {
-                            override fun onMove(
-                                recyclerView: RecyclerView,
-                                viewHolder: RecyclerView.ViewHolder,
-                                target: RecyclerView.ViewHolder
-                            ): Boolean {
-                                TODO("Not yet implemented")
-                            }
-
-                            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                                CommentAdapter(commentlist).removeData(viewHolder.adapterPosition, documentUid)
-                                Log.d("어뎁터",commentlist.toString())
-                                Log.d("어뎁터 포지션",viewHolder.adapterPosition.toString())
-
-
-                                commentAdapter.notifyDataSetChanged()
-                            }
-
-                            override fun onChildDraw(
-                                c: Canvas,
-                                recyclerView: RecyclerView,
-                                viewHolder: RecyclerView.ViewHolder,
-                                dX: Float,
-                                dY: Float,
-                                actionState: Int,
-                                isCurrentlyActive: Boolean
-                            ) {
-                                val text = "삭제"
-                                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
-                                    val itemView = viewHolder.itemView
-                                    val height = (itemView.bottom - itemView.top).toFloat()
-                                    val width = height/4
-                                    val paint = Paint()
-                                    if (dX<0){ //dx가 마이너스면 스와이프를 하고 있음
-                                        paint.color = Color.parseColor("#ff0000")
-                                        //밑에 사각형 크기
-                                        val background = RectF(itemView.right.toFloat() + dX, itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat())
-                                        c.drawRect(background, paint)
-
-                                        val textPaint = TextPaint()
-                                        textPaint.textSize = 50f
-                                        textPaint.color = Color.WHITE
-                                        val bounds = Rect()
-                                        textPaint.getTextBounds(text, 0, text.length, bounds)
-                                        val textHeight = bounds.height()
-                                        val textWidth = textPaint.measureText(text)
-                                        val textX = itemView.right - 3 * width - itemView.paddingRight - textWidth
-                                        val textY = itemView.top + height /2f + textHeight /2f
-
-                                        c.drawText(text, textX, textY, textPaint)
-                                    }
-                                }
-                                super.onChildDraw(
-                                    c,
-                                    recyclerView,
-                                    viewHolder,
-                                    dX,
-                                    dY,
-                                    actionState,
-                                    isCurrentlyActive
-                                )
-                            }
-                        }
-                        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.recyclerView)
 
                     }
 
@@ -179,10 +120,12 @@ class CommudetaillActivity : AppCompatActivity() {
         binding.blankheart.setOnClickListener {
             binding.heart.isVisible = true
             binding.blankheart.isGone = true
+            binding.heartCountTv.text = (binding.heartCountTv.text.toString().toInt() + 1).toString()
             mStore.collection("Community").document(documentUid)
                 .update("heartCount", FieldValue.arrayUnion(uid))
 
         }
+
         //공감 취소
         binding.heart.setOnClickListener {
 
@@ -198,6 +141,7 @@ class CommudetaillActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                                 binding.blankheart.isVisible = true
                                 binding.heart.isGone = true
+                                binding.heartCountTv.text = (binding.heartCountTv.text.toString().toInt() - 1).toString()
                             }
                     }
 
@@ -220,17 +164,16 @@ class CommudetaillActivity : AppCompatActivity() {
                 mStore.collection("Accounts").document(uid).get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
+                            val currentTime2 = System.currentTimeMillis()
                             var comment = Comment(
                                 binding.commentAddEdt.text.toString(),
                                 document["nickname"] as String,
-                                currentTime,
+                                currentTime2.toString(),
                                 commentId,
                                 uid
-
                             )
                             commentlist.add(comment)
                             Log.d("닉네임", nickName)
-                            val commentData = hashMapOf("comments" to comment)
 
                             mStore.collection("Community").document(documentUid)
                                 .update("comments", FieldValue.arrayUnion(comment))
@@ -242,11 +185,18 @@ class CommudetaillActivity : AppCompatActivity() {
                                             LinearLayoutManager.VERTICAL,
                                             false
                                         )
-                                    binding.recyclerView.adapter = CommentAdapter(commentlist)
+                                    binding.recyclerView.adapter = CommentAdapter(commentlist,documentUid,object:CommentAdapter.Delete{
+                                        override fun delete() {
+                                            binding.commentCountTv.text = commentlist.size.toString()
+                                        }
+
+                                    })
                                     val dividerItemDecoration = DividerItemDecoration(
                                         binding.recyclerView.context,
                                         LinearLayoutManager(this).orientation
                                     )
+//                                    CommentAdapter(commentlist,documentUid).notifyDataSetChanged()
+                                    binding.recyclerView.scrollToPosition(commentlist.size - 1)
                                     binding.recyclerView.addItemDecoration(dividerItemDecoration)
                                     binding.commentAddEdt.text = null
                                     binding.commentCountTv.text = commentlist.size.toString()
@@ -257,6 +207,8 @@ class CommudetaillActivity : AppCompatActivity() {
             }
 
     }
+
+
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

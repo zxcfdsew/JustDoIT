@@ -11,7 +11,16 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="병원 정보"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:id="@+id/toolbar_title"
+            android:textSize="16sp"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -128,13 +137,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        app:tabSelectedTextColor="@color/black"
+        app:tabSelectedTextColor="@color/deep_purple"
         app:tabTextColor="@color/textcolor"
         app:tabIndicatorColor="@color/deep_purple"
         android:background="@color/light_sky" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

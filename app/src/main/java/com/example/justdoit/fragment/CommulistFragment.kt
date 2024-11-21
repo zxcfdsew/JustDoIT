@@ -117,13 +117,8 @@ class CommulistFragment : Fragment() {
                                     Log.d("정렬 후 리스트", communityList.toString())
                                     binding.recyclerView.adapter = CommunityAdapter(communityList)
                                 }
-
                         }
-
-
                     }
-
-
                 }
         } else {
             Log.d("카테고리리스트2", "실행")
@@ -131,6 +126,7 @@ class CommulistFragment : Fragment() {
                 .orderBy("time", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        communityList.clear()
                         Log.d("2성공", task.result.toString())
                         for (document in task.result) {
 
@@ -157,7 +153,6 @@ class CommulistFragment : Fragment() {
                                         heartSize.toString()
                                     )
                                     communityList.add(item)
-                                    communityList.add(item)
                                     Log.d("정렬 전 리스트 반보", communityList.toString())
                                     binding.recyclerView.layoutManager = LinearLayoutManager(
                                         context,
@@ -167,7 +162,7 @@ class CommulistFragment : Fragment() {
                                     val reverseComparator =
                                         compareByDescending<Community> { it.time }
                                     communityList.sortWith(reverseComparator)
-                                    Log.d("정렬 후 리스트", communityList.toString())
+                                    Log.d("정렬 후 리스트2", communityList.toString())
                                     binding.recyclerView.adapter = CommunityAdapter(communityList)
                                     Log.d("카테고리리스트111", communityList.toString())
                                 }
@@ -176,8 +171,6 @@ class CommulistFragment : Fragment() {
                         }
                     }
                 }
-
-
         }
     }
 }

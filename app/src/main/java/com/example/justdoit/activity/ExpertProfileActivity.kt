@@ -5,13 +5,15 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.RatingBar
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.example.justdoit.R
+import com.example.justdoit.adapters.ExpertReviewAdapter
 import com.example.justdoit.adapters.ExpertViewPagerAdapter
 import com.example.justdoit.databinding.ActivityExpertProfileBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,6 +22,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 class ExpertProfileActivity : AppCompatActivity() {
 
@@ -29,6 +32,7 @@ class ExpertProfileActivity : AppCompatActivity() {
     private val mAuth: FirebaseAuth = Firebase.auth
     private lateinit var userNickname: String
     private lateinit var expertUid: String
+    private val mStorage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +40,21 @@ class ExpertProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val intent = intent
+        expertUid = intent.getStringExtra("expertUid").toString()
+
         val userUid = mAuth.currentUser?.uid
+
         mStore.collection("Accounts").document(userUid.toString()).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 userNickname = task.result.get("nickname").toString()
             }
         }
 
-        expertUid = intent.getStringExtra("expertUid").toString()
+        var imageName = "Expert_" + expertUid
+        val storageRef = mStorage.reference.child("profileImg").child(imageName)
+        storageRef.downloadUrl.addOnSuccessListener { uri ->
+            Glide.with(this).load(uri).into(binding.profileImg)
+        }
 
         val db = mStore.collection("ExpertList").document(expertUid!!)
 
@@ -58,34 +69,7 @@ class ExpertProfileActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "전문가 정보"
-
-        db.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val datas = task.result
-                val favorite = datas.get("favorite") as? ArrayList<String>
-                if (favorite != null && favorite.contains(userUid)) {
-                    binding.favoriteIv.isSelected = true
-                }
-                binding.expertNameTxt.text = datas.get("name").toString()
-                binding.availableTimeTxt.text = datas.get("availableTime").toString()
-                binding.phoneNumTxt.text = datas.get("phoneNum").toString()
-
-
-                val reviewsData = datas.get("review") as ArrayList<Map<String, String>>
-                var reviewCount = 0
-                var allScore = 0F
-                for (rate in reviewsData) {
-                    allScore += rate.get("ratingScore").toString().toFloat()
-                    reviewCount++
-                }
-
-                var ratingScore = allScore / reviewCount
-                var ratingScoreString = if (ratingScore.isNaN()) "0" else String.format("%.1f", ratingScore)
-                db.update("score", ratingScoreString)
-                binding.ratingTxt.text = ratingScoreString
-            }
-        }
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding.viewPager.adapter = ExpertViewPagerAdapter(this, 2, expertUid)
         binding.viewPager.isUserInputEnabled = false    // 스와이프 막기
@@ -111,6 +95,40 @@ class ExpertProfileActivity : AppCompatActivity() {
             android.R.id.home -> onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val userUid = mAuth.currentUser?.uid
+        val db = mStore.collection("ExpertList").document(expertUid!!)
+        db.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val datas = task.result
+
+                val favorite = datas.get("favorite") as? ArrayList<String>
+                if (favorite != null && favorite.contains(userUid)) {
+                    binding.favoriteIv.isSelected = true
+                }
+
+                binding.expertNameTxt.text = datas.get("name").toString()
+                binding.availableTimeTxt.text = datas.get("availableTime").toString()
+                binding.phoneNumTxt.text = datas.get("phoneNum").toString()
+
+                val reviewsData = datas.get("review") as ArrayList<Map<String, String>>
+                var reviewCount = 0
+                var allScore = 0F
+                for (rate in reviewsData) {
+                    allScore += rate.get("ratingScore").toString().toFloat()
+                    reviewCount++
+                }
+                var ratingScore = allScore / reviewCount
+                var ratingScoreString = if (ratingScore.isNaN()) "0" else String.format("%.1f", ratingScore)
+                db.update("score", ratingScoreString)
+                binding.ratingTxt.text = ratingScoreString
+
+            }
+        }
+
     }
 
 }

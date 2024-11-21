@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mAuth = Firebase.auth
-        binding.testUidTxt.text = mAuth.currentUser!!.uid
+        binding.testUidTxt.text = mAuth.currentUser?.uid
 
     }
 

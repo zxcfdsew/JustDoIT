@@ -22,6 +22,7 @@ class AddReviewActivity : AppCompatActivity() {
     private lateinit var uid: String
     private lateinit var userNickName: String
     private val mAuth: FirebaseAuth = Firebase.auth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val getintent = intent

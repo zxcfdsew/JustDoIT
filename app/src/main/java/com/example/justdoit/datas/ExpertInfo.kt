@@ -1,5 +1,7 @@
 package com.example.justdoit.datas
 
+import android.net.Uri
+
 data class ExpertInfo(
     val expertUid: String,
     val name: String,

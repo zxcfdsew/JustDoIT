@@ -8,12 +8,16 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import android.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.justdoit.R
 import com.example.justdoit.databinding.ActivityMainBinding
 import com.example.justdoit.fragment.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,19 +32,13 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        supportActionBar?.title = "홈"
-//        뒤로가기 버튼
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "일기"
 
-        setFragment(HomeFragment())
+        setFragment(DiaryFragment())
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.item_fragment_home -> {
-                    setFragment(HomeFragment())
-                    supportActionBar?.title = "홈"
-                    expertVisibility(false)
-                }
+
                 R.id.item_fragment_diary -> {
                     setFragment(DiaryFragment())
                     supportActionBar?.title = "일기"
@@ -53,10 +51,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.item_fragment_help -> {
                     setFragment(ExpertFragment())
-                    supportActionBar?.title = "help"
                     expertVisibility(true)
                     binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_purple))
                     binding.customSwitch.isSelected = false
+                    supportActionBar?.title = "전문가"
                     toolbarBackgroundColor = false
                 }
                 R.id.item_fragment_setting -> {
@@ -72,12 +70,14 @@ class MainActivity : AppCompatActivity() {
             if (binding.customSwitch.isSelected) {
                 binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_purple))
                 binding.customSwitch.isSelected = false
+                supportActionBar?.title = "전문가"
                 toolbarBackgroundColor = false
                 setFragment(ExpertFragment())
             } else {
                 binding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.light_sky))
                 binding.customSwitch.isSelected = true
                 toolbarBackgroundColor = true
+                supportActionBar?.title = "병원"
                 setFragment(HospitalFragment())
             }
         }

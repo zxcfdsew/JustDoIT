@@ -40,6 +40,12 @@ class InfoFragment : Fragment() {
                 binding.nicknameTv.text = document["nickname"] as String
             }
         }
+
+        binding.nicknameTv.setOnClickListener {
+            val AccessIntent = Intent(activity, AccessManagementActivity::class.java)
+            startActivity(AccessIntent)
+        }
+
         binding.mypostTv.setOnClickListener {
             val intent = Intent(context, MypostActivity::class.java)
             startActivity(intent)
